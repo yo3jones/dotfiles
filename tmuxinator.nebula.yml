@@ -1,0 +1,100 @@
+# /Users/chris/.config/tmuxinator/nebula.yml
+
+name: nebula
+root: ~/
+
+# Optional tmux socket
+# socket_name: foo
+
+# Note that the pre and post options have been deprecated and will be replaced by
+# project hooks.
+
+# Project hooks
+# Runs on project start, always
+# on_project_start: command
+# Run on project start, the first time
+# on_project_first_start: command
+# Run on project start, after the first time
+# on_project_restart: command
+# Run on project exit ( detaching from tmux session )
+# on_project_exit: command
+# Run on project stop
+# on_project_stop: command
+
+# Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
+# pre_window: rbenv shell 2.0.0-p247
+
+# Pass command line options to tmux. Useful for specifying a different tmux.conf.
+# tmux_options: -f ~/.tmux.mac.conf
+
+# Change the command to call tmux.  This can be used by derivatives/wrappers like byobu.
+# tmux_command: byobu
+
+# Specifies (by name or index) which window will be selected on project startup. If not set, the first window is used.
+# startup_window: editor
+
+# Specifies (by index) which pane of the specified window will be selected on project startup. If not set, the first pane is used.
+# startup_pane: 1
+
+# Controls whether the tmux session should be attached to automatically. Defaults to true.
+# attach: false
+
+windows:
+  - deploy:
+      root: ~/nebula/dev/neb-deploy
+      layout: 6175,727x98,0,0{487x98,0,0,0,239x98,488,0[239x49,488,0,1,239x48,488,50,2]}
+      panes:
+        - vim
+        - k9s
+        -
+  - www:
+      root: ~/nebula/dev/neb-www
+      layout: 4ab2,727x98,0,0{526x98,0,0,1,200x98,527,0,11}
+      panes:
+        - vim
+        -
+  - microservice:
+      root: ~/nebula/dev/neb-microservice
+      layout: 4ab2,727x98,0,0{526x98,0,0,1,200x98,527,0,11}
+      panes:
+        - vim
+        -
+  - registry:
+      root: ~/nebula/dev/neb-ms-registry
+      layout: 4ab2,727x98,0,0{526x98,0,0,1,200x98,527,0,11}
+      panes:
+        - vim
+        -
+  - api:
+      root: ~/nebula/dev/neb-api
+      layout: 4ab2,727x98,0,0{526x98,0,0,1,200x98,527,0,11}
+      panes:
+        - vim
+        -
+  - billing:
+      root: ~/nebula/dev/neb-ms-billing
+      layout: 4ab2,727x98,0,0{526x98,0,0,1,200x98,527,0,11}
+      panes:
+        - vim
+        -
+  - permissions:
+      root: ~/nebula/dev/neb-ms-permissions
+      layout: 4ab2,727x98,0,0{526x98,0,0,1,200x98,527,0,11}
+      panes:
+        - vim
+        -
+  - data-funnel:
+      root: ~/nebula/dev/neb-pipe-data-funnel
+      layout: 4ab2,727x98,0,0{526x98,0,0,1,200x98,527,0,11}
+      panes:
+        - vim
+        -
+  - warehouse-sink:
+      root: ~/nebula/dev/neb-pipe-warehouse-sink
+      layout: 4ab2,727x98,0,0{526x98,0,0,1,200x98,527,0,11}
+      panes:
+        - vim
+        -
+  # - server: bundle exec rails s
+  # - logs: tail -f log/development.log
+

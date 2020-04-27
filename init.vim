@@ -61,7 +61,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-surround'
 
   " lint
-  Plug 'w0rp/ale'
+  " Plug 'w0rp/ale'
+  Plug 'dense-analysis/ale'
 
   " syntax highlighting for template literals
   Plug 'jonsmithers/vim-html-template-literals'
@@ -191,7 +192,8 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#bufferline#enabled = 0
 let g:airline#extensions#tabline#show_buffers = 0
 
-"ale
+" ale
+" let g:ale_fixers = {'javascript': ['prettier', 'eslint']}
 let g:ale_fixers = {'javascript': ['prettier', 'eslint']}
 let g:ale_fix_on_save = 1
 map <leader>ff :ALEFix<cr>

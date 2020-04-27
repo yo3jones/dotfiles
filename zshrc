@@ -7,26 +7,21 @@ export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 export PATH="/usr/local/opt/libpq/bin:$PATH"
 export PATH="$PATH:/Users/chris/nebula/dev/kafka/kafka_2.12-2.4.0/bin"
 
-# AWS and K8s environment
-export KOPS_STATE_STORE="s3://chirotouch-config-dev"
-export AWS_ACCESS_KEY_ID=""
-export AWS_SECRET_ACCESS_KEY=""
-export AWS_DEFAULT_REGION="us-east-1"
-
-# Docker Creds
-export DOCKER_USERNAME="yo3nebula"
-export DOCKER_EMAIL="cjones@chirotouch.com"
-export DOCKER_PASSWORD=""
+source $HOME/.secretsrc
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-export EDITOR="vim"
+export EDITOR="nvim"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="agnoster"
+# ZSH_THEME="agnoster"
+# ZSH_THEME="avit"
+ZSH_THEME="bira"
+# ZSH_THEME="gallois"
+# ZSH_THEME="gnzh"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load

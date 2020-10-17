@@ -5,13 +5,18 @@ export PATH=~/Library/Python/3.6/bin:$PATH
 export PATH="$PATH:/Users/chris/nebula/dev/kafka/kafka_2.12-2.4.0/bin"
 export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 export PATH="/usr/local/opt/libpq/bin:$PATH"
+export PATH="$PATH:$HOME/kafka/bin"
 export PATH="$PATH:/Users/chris/nebula/dev/kafka/kafka_2.12-2.4.0/bin"
+export PATH="$PATH:/snap/bin"
+export XDG_CONFIG_HOME="/root/.config"
 
 source $HOME/.secretsrc
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 export EDITOR="nvim"
+
+cp $HOME/.Xauthority /home/root/
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -78,6 +83,7 @@ COMPLETION_WAITING_DOTS="true"
 
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+nvm use 14
 
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
@@ -92,8 +98,6 @@ plugins=(
   encode64
   fzf
   git
-  iterm2
-  jira
   kube-ps1
   kubectl
   node
@@ -106,6 +110,8 @@ plugins=(
   tmux
   tmuxinator
 )
+  # jira
+  # iterm2
 
 source $ZSH/oh-my-zsh.sh
 
@@ -143,3 +149,6 @@ alias vim="nvim"
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
 export FZF_CTRL_T_COMMAND='rg --files --hidden'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+source <(helm completion zsh)
+source <(eksctl completion zsh)

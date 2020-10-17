@@ -1,91 +1,92 @@
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 " --------
-  " Theme
-  " --------
-  " Plug 'joshdick/onedark.vim'
-  " Plug 'w0ng/vim-hybrid'
-  " Plug 'sjl/badwolf'
-  " Plug 'rakr/vim-one'
-  " Plug 'dracula/vim'
-  Plug 'morhetz/gruvbox'
+   " Theme
+   " --------
+   " Plug 'joshdick/onedark.vim'
+   " Plug 'w0ng/vim-hybrid'
+   " Plug 'sjl/badwolf'
+   " Plug 'rakr/vim-one'
+   " Plug 'dracula/vim'
+   Plug 'morhetz/gruvbox'
 
-  " File Browser
-  Plug 'scrooloose/nerdtree'
+   " File Browser
+   Plug 'scrooloose/nerdtree'
 
-  " Fuzzy Search
-  " Plug 'kien/ctrlp.vim'
-  " Plug '/Users/chris/.fzf'
-  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-  Plug 'junegunn/fzf.vim'
+   " Fuzzy Search
+   " Plug 'kien/ctrlp.vim'
+   " Plug '/Users/chris/.fzf'
+   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+   Plug 'junegunn/fzf.vim'
 
-  " Plug 'Yggdroot/indentLine'
-  " Plug 'kien/rainbow_parentheses.vim'
-  " Plug 'luochen1990/rainbow'
+   " Plug 'Yggdroot/indentLine'
+   " Plug 'kien/rainbow_parentheses.vim'
+   " Plug 'luochen1990/rainbow'
 
-  " Git stuff
-  Plug 'tpope/vim-fugitive'
+   " Git stuff
+   Plug 'tpope/vim-fugitive'
 
-  " Plug 'tpope/vim-markdown'
+   " Plug 'tpope/vim-markdown'
 
-  " Cool looking status bar and tabs
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
+   " Cool looking status bar and tabs
+   Plug 'vim-airline/vim-airline'
+   Plug 'vim-airline/vim-airline-themes'
 
-  " Highlight other workds
-  Plug 'RRethy/vim-illuminate'
+   " Highlight other workds
+   Plug 'RRethy/vim-illuminate'
 
-  " Javascript goodness
-  Plug 'pangloss/vim-javascript'
+   " Javascript goodness
+   Plug 'pangloss/vim-javascript'
 
-  " Autocomplete
-  " Plug 'Valloric/YouCompleteMe'
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  " Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+   " Autocomplete
+   " Plug 'Valloric/YouCompleteMe'
+   Plug 'neoclide/coc.nvim', {'branch': 'release'}
+   " Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+   " Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
 
-  " Easy commenting of blocks and lines
-  Plug 'tomtom/tcomment_vim'
+   " Easy commenting of blocks and lines
+   Plug 'tomtom/tcomment_vim'
 
-  " Supposed to make it easy to switch betweek panes
-  " Plug 'dflupu/vim-iterm2-navigator'
-  Plug 'christoomey/vim-tmux-navigator'
+   " Supposed to make it easy to switch betweek panes
+   " Plug 'dflupu/vim-iterm2-navigator'
+   Plug 'christoomey/vim-tmux-navigator'
 
-  " Bracket stuff
-  Plug 'tpope/vim-endwise'
-  Plug 'jiangmiao/auto-pairs'
-  Plug 'tpope/vim-surround'
+   " Bracket stuff
+   Plug 'tpope/vim-endwise'
+   Plug 'jiangmiao/auto-pairs'
+   Plug 'tpope/vim-surround'
 
-  " lint
-  " Plug 'w0rp/ale'
-  Plug 'dense-analysis/ale'
+   " lint
+   " Plug 'w0rp/ale'
+   Plug 'dense-analysis/ale'
 
-  " syntax highlighting for template literals
-  Plug 'jonsmithers/vim-html-template-literals'
+   " syntax highlighting for template literals
+   Plug 'jonsmithers/vim-html-template-literals'
 
-  " quick navigation based of first letter
-  Plug 'easymotion/vim-easymotion'
+   " quick navigation based of first letter
+   Plug 'easymotion/vim-easymotion'
 
-  " incremental search
-  Plug 'haya14busa/incsearch.vim'
+   " incremental search
+   Plug 'haya14busa/incsearch.vim'
 
-  " incremental fuzzy search
-  Plug 'haya14busa/incsearch-fuzzy.vim'
+   " incremental fuzzy search
+   Plug 'haya14busa/incsearch-fuzzy.vim'
 
-  " links incremental search with easy motion
-  Plug 'haya14busa/incsearch-easymotion.vim'
+   " links incremental search with easy motion
+   Plug 'haya14busa/incsearch-easymotion.vim'
 
-  " Plug 'c9s/helper.vim'
-  " Plug 'c9s/treemenu.vim'
-  " Plug 'c9s/vikube.vim'
+   " Plug 'c9s/helper.vim'
+   " Plug 'c9s/treemenu.vim'
+   " Plug 'c9s/vikube.vim'
 
-  Plug 'ryanoasis/vim-devicons'
+   Plug 'ryanoasis/vim-devicons'
 
-  Plug 'vimwiki/vimwiki'
+   Plug 'vimwiki/vimwiki'
 call plug#end()
 
 " General Stuff
@@ -165,9 +166,9 @@ let g:markdown_fenced_languages = ['html', 'javascript', 'bash=sh', 'sql']
 "   \ }
 
 nmap <leader><tab> <plug>(fzf-maps-n)
-nmap <C-p> :Files <cr>
-nmap <leader>p :Files <cr>
-nmap <leader>r :Rg<space>
+nmap <C-p> :Files! <cr>
+nmap <leader>p :GFiles!<cr>
+nmap <leader>r :Rg!<space>
 let g:fzf_buffers_jump = 1
 
 " Theme
@@ -193,13 +194,13 @@ let g:airline#extensions#bufferline#enabled = 0
 let g:airline#extensions#tabline#show_buffers = 0
 
 " ale
-" let g:ale_fixers = {'javascript': ['prettier', 'eslint']}
 let g:ale_fixers = {'javascript': ['prettier', 'eslint']}
+let g:ale_linters = {'javascript': ['eslint']}
 let g:ale_fix_on_save = 1
 map <leader>ff :ALEFix<cr>
 nmap <silent> <leader>k <Plug>(ale_previous_wrap)
 nmap <silent> <leader>j <Plug>(ale_next_wrap)
-let g:ale_set_highlights = 1 " Disable highligting
+let b:ale_set_highlights = 1 " Disable highligting
 highlight ALEWarning ctermfg=236 ctermbg=208 cterm=bold
 highlight ALEError ctermfg=236 ctermbg=167 cterm=bold
 
@@ -213,6 +214,15 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
 
 "" use <tab> for trigger completion and navigate to the next complete item
 function! s:check_back_space() abort

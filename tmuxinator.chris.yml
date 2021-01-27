@@ -1,7 +1,7 @@
 # /Users/chris/.config/tmuxinator/nebula.yml
 
-name: Nebula
-root: ~/nebula/dev/
+name: Chris
+root: ~
 
 # Optional tmux socket
 # socket_name: foo
@@ -40,31 +40,11 @@ root: ~/nebula/dev/
 # attach: false
 
 windows:
-  - deploy:
-      root: ~/nebula/dev/neb-deploy
+  - dotfiles:
+      root: ~/dotfiles
       layout: 6175,727x98,0,0{487x98,0,0,0,239x98,488,0[239x49,488,0,1,239x48,488,50,2]}
       panes:
         - vim:
             - tmux set -g pane-active-border-style fg=colour208,bg=colour208
             - vim
-        - k9s
-        -
-  - www:
-      root: ~/nebula/dev/neb-www
-      layout: 4ab2,727x98,0,0{526x98,0,0,1,200x98,527,0,11}
-      panes:
-        - vim
-        -
-  - proxy:
-      root: ~/nebula/dev/neb-proxy
-      layout: 4ab2,727x98,0,0{526x98,0,0,1,200x98,527,0,11}
-      panes:
-        - vim
-        -
-  - local-dev:
-      root: ~/nebula/dev/neb-local-dev
-      layout: 6175,727x98,0,0{487x98,0,0,0,239x98,488,0[239x49,488,0,1,239x48,488,50,2]}
-      panes:
-        - vim
-        - k9s
         -

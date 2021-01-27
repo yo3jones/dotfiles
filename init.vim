@@ -27,6 +27,9 @@ call plug#begin('~/.config/nvim/plugged')
    " Plug 'Yggdroot/indentLine'
    " Plug 'kien/rainbow_parentheses.vim'
    " Plug 'luochen1990/rainbow'
+   " Plug 'nathanaelkane/vim-indent-guides'
+   " Plug 'Yggdroot/indentLine'
+   " Plug 'lukas-reineke/indent-blankline.nvim'
 
    " Git stuff
    Plug 'tpope/vim-fugitive'
@@ -86,7 +89,9 @@ call plug#begin('~/.config/nvim/plugged')
 
    Plug 'ryanoasis/vim-devicons'
 
+   Plug 'blindFS/vim-taskwarrior'
    Plug 'vimwiki/vimwiki'
+   Plug 'tools-life/taskwiki'
 call plug#end()
 
 " General Stuff
@@ -124,6 +129,7 @@ set nu rnu
 
 " Highlight Cursor Line
 set cursorline
+set cursorcolumn
 
 set hlsearch
 set ignorecase
@@ -272,5 +278,8 @@ let g:vikube_default_logs_tail = 100
 
 " vimwiki
 nmap  <Leader>wv <Plug>VimwikiVSplitLink
-let g:vimwiki_list = [{'path': '~/Documents/vimwiki/',
+let g:vimwiki_list = [{'path': '~/Documents/notes/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
+
+" Indentation
+" let g:indent_guides_enable_on_vim_startup = 1

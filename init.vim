@@ -5,36 +5,18 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.config/nvim/plugged')
-" --------
-   " Theme
-   " --------
-   " Plug 'joshdick/onedark.vim'
-   " Plug 'w0ng/vim-hybrid'
-   " Plug 'sjl/badwolf'
-   " Plug 'rakr/vim-one'
-   " Plug 'dracula/vim'
+  " Theme
    Plug 'morhetz/gruvbox'
 
    " File Browser
    Plug 'scrooloose/nerdtree'
 
    " Fuzzy Search
-   " Plug 'kien/ctrlp.vim'
-   " Plug '/Users/chris/.fzf'
    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
    Plug 'junegunn/fzf.vim'
 
-   " Plug 'Yggdroot/indentLine'
-   " Plug 'kien/rainbow_parentheses.vim'
-   " Plug 'luochen1990/rainbow'
-   " Plug 'nathanaelkane/vim-indent-guides'
-   " Plug 'Yggdroot/indentLine'
-   " Plug 'lukas-reineke/indent-blankline.nvim'
-
    " Git stuff
    Plug 'tpope/vim-fugitive'
-
-   " Plug 'tpope/vim-markdown'
 
    " Cool looking status bar and tabs
    Plug 'vim-airline/vim-airline'
@@ -47,10 +29,7 @@ call plug#begin('~/.config/nvim/plugged')
    Plug 'pangloss/vim-javascript'
 
    " Autocomplete
-   " Plug 'Valloric/YouCompleteMe'
    Plug 'neoclide/coc.nvim', {'branch': 'release'}
-   " Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-   " Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
 
    " Easy commenting of blocks and lines
    Plug 'tomtom/tcomment_vim'
@@ -65,8 +44,8 @@ call plug#begin('~/.config/nvim/plugged')
    Plug 'tpope/vim-surround'
 
    " lint
-   " Plug 'w0rp/ale'
-   Plug 'dense-analysis/ale'
+   " TODO seeing if I really need this when using coc
+   " Plug 'dense-analysis/ale'
 
    " syntax highlighting for template literals
    Plug 'jonsmithers/vim-html-template-literals'
@@ -83,29 +62,18 @@ call plug#begin('~/.config/nvim/plugged')
    " links incremental search with easy motion
    Plug 'haya14busa/incsearch-easymotion.vim'
 
-   " Plug 'c9s/helper.vim'
-   " Plug 'c9s/treemenu.vim'
-   " Plug 'c9s/vikube.vim'
-
    Plug 'ryanoasis/vim-devicons'
-
-   Plug 'blindFS/vim-taskwarrior'
+   " Plug 'blindFS/vim-taskwarrior'
    Plug 'vimwiki/vimwiki'
-   Plug 'tools-life/taskwiki'
+   " Plug 'tools-life/taskwiki'
 call plug#end()
 
 " General Stuff
 set nocompatible
 filetype plugin on
 set directory=$HOME/.vim/swap_files/
-" makes it so the you can use the clipboard
-" set clipboard=unnamed
 set nospell spelllang=en_us
 autocmd BufWritePre * %s/\s\+$//e
-augroup myvimrchooks
-  au!
-  autocmd bufwritepost .vimrc source ~/.vimrc
-augroup END
 set bs=2
 imap jj <Esc>
 
@@ -164,13 +132,6 @@ let g:javascript_plugin_jsdoc = 1
 
 let g:markdown_fenced_languages = ['html', 'javascript', 'bash=sh', 'sql']
 
-" ctrlp
-" let g:ctrlp_show_hidden = 1
-" let g:ctrlp_custom_ignore = {
-"   \ 'hidden-dir':  '\v[\/]\.(git)$',
-"   \ 'dir':  '\v[\/](node_modules|coverage|allure)$'
-"   \ }
-
 nmap <leader><tab> <plug>(fzf-maps-n)
 nmap <C-p> :Files! <cr>
 nmap <leader>p :GFiles!<cr>
@@ -184,14 +145,12 @@ let g:gruvbox_vert_split = 'yellow'
 let g:gruvbox_bold = 1
 let g:gruvbox_termcolors = 256
 set background=dark
-" set background=light
 set termguicolors
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 colorscheme gruvbox
 
 " airline
-" let g:airline_theme='badwolf'
 let g:airline_theme='gruvbox'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'jsformatter'
@@ -200,19 +159,15 @@ let g:airline#extensions#bufferline#enabled = 0
 let g:airline#extensions#tabline#show_buffers = 0
 
 " ale
-let g:ale_fixers = {'javascript': ['prettier', 'eslint']}
-let g:ale_linters = {'javascript': ['eslint']}
-let g:ale_fix_on_save = 1
-map <leader>ff :ALEFix<cr>
-nmap <silent> <leader>k <Plug>(ale_previous_wrap)
-nmap <silent> <leader>j <Plug>(ale_next_wrap)
-let b:ale_set_highlights = 1 " Disable highligting
-highlight ALEWarning ctermfg=236 ctermbg=208 cterm=bold
-highlight ALEError ctermfg=236 ctermbg=167 cterm=bold
-
-" YouCompleteMe
-" let g:ycm_goto_buffer_command = 'split-or-existing-window'
-" nnoremap <leader>gt :leftabove vertical YcmCompleter GoTo<CR>
+" let g:ale_fixers = {'javascript': ['prettier', 'eslint']}
+" let g:ale_linters = {'javascript': ['eslint']}
+" let g:ale_fix_on_save = 1
+" map <leader>ff :ALEFix<cr>
+" nmap <silent> <leader>k <Plug>(ale_previous_wrap)
+" nmap <silent> <leader>j <Plug>(ale_next_wrap)
+" let b:ale_set_highlights = 1 " Disable highligting
+" highlight ALEWarning ctermfg=236 ctermbg=208 cterm=bold
+" highlight ALEError ctermfg=236 ctermbg=167 cterm=bold
 
 " coc - Remap keys for gotos
 " let g:coc.preferences.jumpCommand = 'vsplit'
@@ -244,6 +199,9 @@ endfunction
 inoremap <expr> <Tab> pumvisible() ? "\<C-y>" : "\<Tab>"
 nnoremap <silent> td :<C-u>CocList todolist<cr>
 
+" coc-prettier
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
 " IncSearch
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
@@ -253,13 +211,18 @@ map z/ <Plug>(incsearch-easymotion-/)
 map z? <Plug>(incsearch-easymotion-?)
 map zg/ <Plug>(incsearch-easymotion-stay)
 
-let g:tmux_navigator_no_mappings = 1
-
+" let g:tmux_navigator_no_mappings = 1
+"
 nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
 nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
 nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
 nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
 nnoremap <silent> <C-\> :TmuxNavigatePrevious<cr>
+
+" nnoremap <C-J> <C-W><C-J>
+" nnoremap <C-K> <C-W><C-K>
+" nnoremap <C-L> <C-W><C-L>
+" nnoremap <C-H> <C-W><C-H>
 
 " incsearch.vim x fuzzy x vim-easymotion
 function! s:config_easyfuzzymotion(...) abort
@@ -283,3 +246,13 @@ let g:vimwiki_list = [{'path': '~/Documents/notes/',
 
 " Indentation
 " let g:indent_guides_enable_on_vim_startup = 1
+
+" remove all hidden buffers
+nmap <silent> CC :call DeleteHiddenBuffers()<CR>
+function DeleteHiddenBuffers()
+    let tpbl=[]
+    call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
+    for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
+        silent execute 'bwipeout' buf
+    endfor
+endfunction

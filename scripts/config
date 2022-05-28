@@ -1,0 +1,63 @@
+#!/bin/bash
+
+H="$HOME"
+
+apply_config_dir () {
+  local dir="$H/${1:2}"
+  if ! test -d "$dir"
+  then
+    mkdir $dir
+  fi
+}
+
+apply_config_file_backup () {
+  if test -L "$1"
+  then
+    return
+  fi
+
+  local backupFile="$1.backup.$2"
+
+  if test -f "$backupFile"
+  then
+    apply_config_file_backup $1 $(($2 + 1))
+  else
+    cp $1 $backupFile
+  fi
+}
+
+apply_config_file () {
+  local file="${1:2}"
+  local targetFile="$H/$file"
+  if test -f "$targetFile"
+  then
+    echo "FILE $targetFile EXISTS"
+    apply_config_file_backup $targetFile 0
+    rm $targetFile
+  fi
+  ln -s "$(pwd)/$file" "$targetFile"
+}
+
+apply_config () {
+  if test -d "$configFile"
+  then
+    apply_config_dir $configFile
+  else
+    apply_config_file $configFile
+  fi
+}
+
+apply_configs () {
+  local configFiles=$(\
+    find . \
+      | grep -v "\./\.git" \
+      | grep "\./\."
+  )
+
+  for configFile in $configFiles
+  do
+    apply_config $configFile
+  done
+}
+
+apply_configs

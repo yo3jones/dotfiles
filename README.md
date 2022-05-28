@@ -1,11 +1,14 @@
+## Pi
+
+```
+sudo apt update \
+&& sudo apt upgrade -y \
+&& sudo reboot
+```
+
 ## git
-
 ```
-git clone git@github.com:yo3jones/dotfiles.git
-```
-
-```
-ssh-keygen -t ed25519 -C "your_email@example.com"
+ssh-keygen -t ed25519 -f "$HOME/.ssh/gh" -C "your_email@example.com"
 ```
 
 ~/.ssh/config:

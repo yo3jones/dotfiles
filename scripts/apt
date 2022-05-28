@@ -9,4 +9,15 @@ sudo apt update \
   zsh \
   curl \
   wget \
-  tmux
+  tmux \
+  cmake \
+  automake \
+  libtool \
+  ninja-build \
+  gettext \
+  libtool-bin \
+  autoconf \
+  g++ \
+  pkg-config \
+  unzip \
+  doxygen

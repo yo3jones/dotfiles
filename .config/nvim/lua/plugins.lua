@@ -95,26 +95,26 @@ return require('packer').startup(function(use)
           }
         }
       }
-      -- require('telescope').load_extension('fzf')
+      require('telescope').load_extension('fzf')
 
-      -- vim.api.nvim_set_keymap(
-      --   "n",
-      --   "<C-p>",
-      --   ":Telescope find_files<cr>",
-      --   { noremap = true, silent = true }
-      -- );
-      -- vim.api.nvim_set_keymap(
-      --   "n",
-      --   "<leader>p",
-      --   ":Telescope buffers<cr>",
-      --   { noremap = true, silent = true }
-      -- );
-      -- vim.api.nvim_set_keymap(
-      --   "n",
-      --   "<leader>r",
-      --   ":Telescope live_grep<cr>",
-      --   { noremap = true, silent = true }
-      -- )
+      vim.api.nvim_set_keymap(
+        "n",
+        "<C-p>",
+        ":Telescope find_files<cr>",
+        { noremap = true, silent = true }
+      );
+      vim.api.nvim_set_keymap(
+        "n",
+        "<leader>p",
+        ":Telescope buffers<cr>",
+        { noremap = true, silent = true }
+      );
+      vim.api.nvim_set_keymap(
+        "n",
+        "<leader>r",
+        ":Telescope live_grep<cr>",
+        { noremap = true, silent = true }
+      )
     end
   }
 

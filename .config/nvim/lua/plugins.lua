@@ -11,6 +11,19 @@ return require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
 
+  use({
+    "sainnhe/gruvbox-material",
+    config = function()
+      vim.opt.background = "dark"
+      vim.g.gruvbox_material_background = "hard"
+      vim.g.gruvbox_material_palette = "original"
+      vim.g.gruvbox_material_better_performance = 1
+      vim.g.gruvbox_material_enable_bold = 1
+      vim.g.gruvbox_material_enable_italic = 1
+      vim.cmd("colorscheme gruvbox-material")
+    end,
+  })
+
   use {
     "kyazdani42/nvim-tree.lua",
     requires = {
@@ -24,7 +37,12 @@ return require('packer').startup(function(use)
           ignore_list = {},
         },
       }
-      vim.api.nvim_set_keymap("n", "<C-n>", ":NvimTreeToggle<CR>", { noremap = true })
+      vim.api.nvim_set_keymap(
+        "n", 
+        "<C-n>", 
+        ":NvimTreeToggle<CR>", 
+        { noremap = true }
+      )
     end
   }
 
@@ -70,6 +88,23 @@ return require('packer').startup(function(use)
       );
     end
   }
+
+  use({
+    "nvim-treesitter/nvim-treesitter",
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        ensure_installed = "all",
+        highlight = {
+          enable = true,
+          disable = { "latex" },
+        },
+        indent = {
+          enable = true,
+          disable = { "python", "lua", "latex" },
+        },
+      })
+    end,
+  })
 
   use 'nvim-lua/plenary.nvim'
   use {

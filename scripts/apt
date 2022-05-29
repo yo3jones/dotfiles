@@ -9,6 +9,7 @@ sudo apt update \
   zsh \
   curl \
   wget \
+  bat \
   tmux \
   cmake \
   automake \

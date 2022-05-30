@@ -333,6 +333,13 @@ use {
   })
 
   use {
+    "folke/lsp-colors.nvim",
+    config = function()
+      require("lsp-colors").setup({})
+    end,
+  }
+
+  use {
     "folke/trouble.nvim",
     requires = "kyazdani42/nvim-web-devicons",
     config = function()

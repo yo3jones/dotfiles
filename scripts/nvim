@@ -4,7 +4,9 @@ git clone https://github.com/neovim/neovim \
 && cd neovim \
 && git checkout stable \
 && make \
-&& sudo make install
+&& sudo make install \
+&& cd .. \
+&& rm -rf neovim
 
 git clone --depth 1 https://github.com/wbthomason/packer.nvim\
  ~/.local/share/nvim/site/pack/packer/start/packer.nvim

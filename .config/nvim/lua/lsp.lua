@@ -106,13 +106,13 @@ end
 
 local nvim_lsp = require("lspconfig")
 
-local servers = {
-  "gopls", -- go install golang.org/x/tools/gopls@latest
-}
-
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-  })
-end
+-- local servers = {
+--   "gopls", -- go install golang.org/x/tools/gopls@latest
+-- }
+--
+-- for _, lsp in ipairs(servers) do
+--   nvim_lsp[lsp].setup({
+--     on_attach = on_attach,
+--     capabilities = capabilities,
+--   })
+-- end

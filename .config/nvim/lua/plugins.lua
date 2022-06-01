@@ -39,47 +39,47 @@ return require('packer').startup(function(use)
     end,
   })
 
-use {
-  'kdheepak/tabline.nvim',
-  config = function()
-    require'tabline'.setup {
-      -- Defaults configuration options
-      enable = true,
-      options = {
-      -- If lualine is installed tabline will use separators configured in
-      -- lualine by default.
-      -- These options can be used to override those settings.
-        section_separators = {'', ''},
-        component_separators = {'', ''},
-        -- set to nil by default, and it uses vim.o.columns * 2/3
-        max_bufferline_percent = 66,
-        -- this shows tabs only when there are more than one tab or if the
-        -- first tab is named
-        show_tabs_always = false,
-        show_devicons = true, -- this shows devicons in buffer section
-        show_bufnr = true, -- this appends [bufnr] to buffer section,
-        -- shows base filename only instead of relative path in filename
-        show_filename_only = false,
-        modified_icon = "+ ", -- change the default modified icon
-        -- set to true by default; this determines whether the filename turns
-        -- italic if modified
-        modified_italic = true,
-        -- this shows only tabs instead of tabs + buffers
-        show_tabs_only = false,
+  use {
+    'kdheepak/tabline.nvim',
+    config = function()
+      require'tabline'.setup {
+        -- Defaults configuration options
+        enable = true,
+        options = {
+        -- If lualine is installed tabline will use separators configured in
+        -- lualine by default.
+        -- These options can be used to override those settings.
+          section_separators = {'', ''},
+          component_separators = {'', ''},
+          -- set to nil by default, and it uses vim.o.columns * 2/3
+          max_bufferline_percent = 66,
+          -- this shows tabs only when there are more than one tab or if the
+          -- first tab is named
+          show_tabs_always = false,
+          show_devicons = true, -- this shows devicons in buffer section
+          show_bufnr = true, -- this appends [bufnr] to buffer section,
+          -- shows base filename only instead of relative path in filename
+          show_filename_only = false,
+          modified_icon = "+ ", -- change the default modified icon
+          -- set to true by default; this determines whether the filename turns
+          -- italic if modified
+          modified_italic = true,
+          -- this shows only tabs instead of tabs + buffers
+          show_tabs_only = false,
+        }
       }
+      vim.cmd[[
+        " Use showtabline in gui vim
+        set guioptions-=e
+        " store tabpages and globals in session
+        set sessionoptions+=tabpages,globals
+      ]]
+    end,
+    requires = {
+      { 'hoob3rt/lualine.nvim', opt=true },
+      {'kyazdani42/nvim-web-devicons', opt = true}
     }
-    vim.cmd[[
-      " Use showtabline in gui vim
-      set guioptions-=e
-      " store tabpages and globals in session
-      set sessionoptions+=tabpages,globals
-    ]]
-  end,
-  requires = {
-    { 'hoob3rt/lualine.nvim', opt=true },
-    {'kyazdani42/nvim-web-devicons', opt = true}
   }
-}
 
   use {
     "kyazdani42/nvim-tree.lua",
@@ -151,6 +151,106 @@ use {
     config = function()
       require("nvim-treesitter.configs").setup({
         ensure_installed = "all",
+        highlight = {
+          enable = true,
+          -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+          -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+          -- Using this option may slow down your editor, and you may see some duplicate highlights.
+          -- Instead of true it can also be a list of languages
+          additional_vim_regex_highlighting = false,
+        },
+        incremental_selection = {
+          enable = true,
+          keymaps = {
+            init_selection = "gnn",
+            node_incremental = "grn",
+            scope_incremental = "grc",
+            node_decremental = "grm",
+          },
+        },
+        indent = {
+          enable = true
+        },
+        textobjects = {
+          -- syntax-aware textobjects
+          enable = enable,
+          lsp_interop = {
+            enable = enable,
+            peek_definition_code = {
+              ["DF"] = "@function.outer",
+              ["DF"] = "@class.outer"
+            }
+          },
+          keymaps = {
+            ["iL"] = {
+              -- you can define your own textobjects directly here
+              go = "(function_definition) @function",
+            },
+            -- or you use the queries from supported languages with textobjects.scm
+            ["af"] = "@function.outer",
+            ["if"] = "@function.inner",
+            ["aC"] = "@class.outer",
+            ["iC"] = "@class.inner",
+            ["ac"] = "@conditional.outer",
+            ["ic"] = "@conditional.inner",
+            ["ae"] = "@block.outer",
+            ["ie"] = "@block.inner",
+            ["al"] = "@loop.outer",
+            ["il"] = "@loop.inner",
+            ["is"] = "@statement.inner",
+            ["as"] = "@statement.outer",
+            ["ad"] = "@comment.outer",
+            ["am"] = "@call.outer",
+            ["im"] = "@call.inner"
+          },
+          move = {
+            enable = enable,
+            set_jumps = true, -- whether to set jumps in the jumplist
+            goto_next_start = {
+              ["]m"] = "@function.outer",
+              ["]]"] = "@class.outer"
+            },
+            goto_next_end = {
+              ["]M"] = "@function.outer",
+              ["]["] = "@class.outer"
+            },
+            goto_previous_start = {
+              ["[m"] = "@function.outer",
+              ["[["] = "@class.outer"
+            },
+            goto_previous_end = {
+              ["[M"] = "@function.outer",
+              ["[]"] = "@class.outer"
+            }
+          },
+          select = {
+            enable = enable,
+            keymaps = {
+              -- You can use the capture groups defined in textobjects.scm
+              ["af"] = "@function.outer",
+              ["if"] = "@function.inner",
+              ["ac"] = "@class.outer",
+              ["ic"] = "@class.inner",
+              -- Or you can define your own textobjects like this
+              ["iF"] = {
+                python = "(function_definition) @function",
+                cpp = "(function_definition) @function",
+                c = "(function_definition) @function",
+                java = "(method_declaration) @function",
+                go = "(method_declaration) @function"
+              }
+            }
+          },
+          swap = {
+            enable = enable,
+            swap_next = {
+              ["<leader>a"] = "@parameter.inner"
+            },
+            swap_previous = {
+              ["<leader>A"] = "@parameter.inner"
+            }
+          }
+        }
       })
     end,
   })
@@ -348,6 +448,46 @@ use {
         -- or leave it empty to use the default settings
         -- refer to the configuration section below
       }
+    end
+  }
+
+  use 'mfussenegger/nvim-dap'
+  use 'rcarriga/nvim-dap-ui'
+  use 'theHamsta/nvim-dap-virtual-text' 
+  use 'ray-x/guihua.lua' -- recommanded if need floating window support
+  use{
+    'ray-x/go.nvim',
+    config = function()
+      -- vim.cmd([[
+      --   autocmd BufWritePre *.go :silent! lua require('go.format').gofmt()
+      -- ]])
+      vim.cmd([[
+        autocmd BufWritePre (InsertLeave?) <buffer> lua vim.lsp.buf.formatting_sync(nil,500)
+      ]])
+      -- Run gofmt + goimport on save
+      -- vim.cmd(
+      --   [[
+      --     autocmd BufWritePre *.go :silent! lua require('go.format').goimport()
+      --   ]],
+      --   false
+      -- )
+      vim.cmd([[
+        autocmd BufWritePre *.go :silent! lua require('go.format').gofmt()
+      ]])
+      require('go').setup({
+        goimport = 'gopls', -- if set to 'gopls' will use golsp format
+        gofmt = 'gofumpt', -- if set to gopls will use golsp format
+        max_line_len = 80,
+        tag_transform = false,
+        test_dir = '',
+        comment_placeholder = '   ',
+        lsp_cfg = true, -- false: use your own lspconfig
+        lsp_gofumpt = true, -- true: set default gofmt in gopls format to gofumpt
+        lsp_on_attach = true, -- use on_attach from go.nvim
+        dap_debug = true,
+      })
+      -- vim.cmd("autocmd FileType go nmap <Leader><Leader>l GoLint")
+      -- vim.cmd("autocmd FileType go nmap <Leader>gc :lua require('go.comment').gen()")
     end
   }
 

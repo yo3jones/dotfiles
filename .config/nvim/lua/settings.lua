@@ -76,3 +76,10 @@ opt.inccommand = "nosplit" -- show effects of substitute incrementally
 opt.mouse = "a" -- enable mouse mode
 
 opt.updatetime = 400 -- decrease time for cursorhold event
+
+-- trying to use nvim-treesitter for folding
+-- doesn't work well yet, want to be able to fold inside, not outside of a 
+-- function/method
+--
+-- opt.foldmethod = "expr"
+-- opt.foldexpr = "nvim_treesitter#foldexpr()"

@@ -451,45 +451,45 @@ return require('packer').startup(function(use)
     end
   }
 
-  use 'mfussenegger/nvim-dap'
-  use 'rcarriga/nvim-dap-ui'
-  use 'theHamsta/nvim-dap-virtual-text' 
-  use 'ray-x/guihua.lua' -- recommanded if need floating window support
-  use{
-    'ray-x/go.nvim',
-    config = function()
-      -- vim.cmd([[
-      --   autocmd BufWritePre *.go :silent! lua require('go.format').gofmt()
-      -- ]])
-      vim.cmd([[
-        autocmd BufWritePre (InsertLeave?) <buffer> lua vim.lsp.buf.formatting_sync(nil,500)
-      ]])
-      -- Run gofmt + goimport on save
-      -- vim.cmd(
-      --   [[
-      --     autocmd BufWritePre *.go :silent! lua require('go.format').goimport()
-      --   ]],
-      --   false
-      -- )
-      vim.cmd([[
-        autocmd BufWritePre *.go :silent! lua require('go.format').gofmt()
-      ]])
-      require('go').setup({
-        goimport = 'gopls', -- if set to 'gopls' will use golsp format
-        gofmt = 'gofumpt', -- if set to gopls will use golsp format
-        max_line_len = 80,
-        tag_transform = false,
-        test_dir = '',
-        comment_placeholder = '   ',
-        lsp_cfg = true, -- false: use your own lspconfig
-        lsp_gofumpt = true, -- true: set default gofmt in gopls format to gofumpt
-        lsp_on_attach = true, -- use on_attach from go.nvim
-        dap_debug = true,
-      })
-      -- vim.cmd("autocmd FileType go nmap <Leader><Leader>l GoLint")
-      -- vim.cmd("autocmd FileType go nmap <Leader>gc :lua require('go.comment').gen()")
-    end
-  }
+  -- use 'mfussenegger/nvim-dap'
+  -- use 'rcarriga/nvim-dap-ui'
+  -- use 'theHamsta/nvim-dap-virtual-text' 
+  -- use 'ray-x/guihua.lua' -- recommanded if need floating window support
+  -- use{
+  --   'ray-x/go.nvim',
+  --   config = function()
+  --     -- vim.cmd([[
+  --     --   autocmd BufWritePre *.go :silent! lua require('go.format').gofmt()
+  --     -- ]])
+  --     vim.cmd([[
+  --       autocmd BufWritePre (InsertLeave?) <buffer> lua vim.lsp.buf.formatting_sync(nil,500)
+  --     ]])
+  --     -- Run gofmt + goimport on save
+  --     -- vim.cmd(
+  --     --   [[
+  --     --     autocmd BufWritePre *.go :silent! lua require('go.format').goimport()
+  --     --   ]],
+  --     --   false
+  --     -- )
+  --     vim.cmd([[
+  --       autocmd BufWritePre *.go :silent! lua require('go.format').gofmt()
+  --     ]])
+  --     require('go').setup({
+  --       goimport = 'gopls', -- if set to 'gopls' will use golsp format
+  --       gofmt = 'gofumpt', -- if set to gopls will use golsp format
+  --       max_line_len = 80,
+  --       tag_transform = false,
+  --       test_dir = '',
+  --       comment_placeholder = '   ',
+  --       lsp_cfg = true, -- false: use your own lspconfig
+  --       lsp_gofumpt = true, -- true: set default gofmt in gopls format to gofumpt
+  --       lsp_on_attach = true, -- use on_attach from go.nvim
+  --       dap_debug = true,
+  --     })
+  --     -- vim.cmd("autocmd FileType go nmap <Leader><Leader>l GoLint")
+  --     -- vim.cmd("autocmd FileType go nmap <Leader>gc :lua require('go.comment').gen()")
+  --   end
+  -- }
 
   -- use("ggandor/lightspeed.nvim")
   --

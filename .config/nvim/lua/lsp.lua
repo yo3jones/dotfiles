@@ -105,6 +105,57 @@ end
 -- })
 
 local nvim_lsp = require("lspconfig")
+local util = require("lspconfig/util")
+
+nvim_lsp.gopls.setup({
+  on_attach = function(client, bufnr)
+    on_attach(client, bufnr)
+    vim.api.nvim_buf_set_keymap(
+      bufnr, 
+      "n", 
+      "<space>f", 
+      "<cmd>lua goFormat()<CR>", 
+      { noremap = true, silent = true }
+    )
+  end,
+  capabilities = capabilities,
+  cmd = { "gopls" },
+  filetypes = { "go", "gomod", "gotmpl" },
+  root_dir = util.root_pattern("go.mod", ".git"),
+  single_file_support = true,
+  settings = {
+    gopls = {
+      gofumpt = true,
+    }
+  }
+})
+
+nvim_lsp.golangci_lint_ls.setup({
+  capabilities = capabilities,
+})
+
+local Job = require("plenary.job")
+function goFormat()
+  local old_lines = vim.api.nvim_buf_get_lines(0, 0, -1, true)
+  local data = {}
+  local fmt_job = Job:new({
+    command = "gofumpt",
+    args = { "-extra" },
+    writer = old_lines,
+  })
+  Job:new({
+    command = "golines",
+    args = { "--max-len=80" },
+    writer = fmt_job,
+    on_stdout = function(_, d, _)
+      table.insert(data, d)
+    end
+  }):sync()
+  vim.api.nvim_buf_set_lines(0, 0, -1, false, data)
+end
+
+-- vim.cmd([[autocmd BufWritePre *.go lua vim.lsp.buf.formatting_sync(nil, 100)]])
+vim.cmd([[autocmd BufWritePre *.go lua goFormat()]])
 
 -- local servers = {
 --   "gopls", -- go install golang.org/x/tools/gopls@latest

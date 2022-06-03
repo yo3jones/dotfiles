@@ -1,0 +1,12 @@
+generate:
+
+  include:
+  - .*
+  - .config/*
+  - .config/*/*
+  - .config/*/*/*
+
+  exclude:
+  - .yconfig.yaml
+  - .gitignore
+  - .yconfig.yaml

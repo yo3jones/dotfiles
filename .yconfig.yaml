@@ -1,5 +1,9 @@
 generate:
 
+  templateRoot: ./
+
+  destinationRoot: ./dist
+
   include:
   - .*
   - .config/*
@@ -7,8 +11,9 @@ generate:
   - .config/*/*/*
 
   exclude:
-  - .yconfig.yaml
   - .gitignore
   - .yconfig.yaml
 
   link: true
+
+  delay: 0

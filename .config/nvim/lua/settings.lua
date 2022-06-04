@@ -22,6 +22,15 @@ opt.hidden = true
 opt.laststatus = 2
 opt.ruler = true
 
+-- try to be faster
+-- opt.number = false
+-- opt.relativenumber = false
+-- opt.cursorline = false
+-- opt.cursorcolumn = false
+
+opt.lazyredraw = true
+opt.foldmethod = "manual"
+
 -- Line Number
 opt.number = true
 opt.relativenumber = true
@@ -46,7 +55,7 @@ opt.showcmd = true
 opt.colorcolumn = "80"
 
 -- clipboard
-opt.clipboard = "unnamed"
+-- opt.clipboard = "unnamed"
 
 opt.completeopt = "menu,menuone,noselect"
 

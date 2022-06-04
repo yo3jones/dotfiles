@@ -1,3 +1,47 @@
+# dotfiles
+
+## Get yconfig
+
+### PI
+
+```
+curl \
+  -L \
+  https://github.com/yo3jones/yconfig/releases/latest/download/yconfig-linux-arm64 \
+  --output yconfig \
+&& chmod +x yconfig
+```
+
+### M1 Mac
+
+```
+curl \
+  -L \
+  https://github.com/yo3jones/yconfig/releases/latest/download/yconfig-darwin-arm64 \
+  --output yconfig \
+&& chmod +x yconfig
+```
+
+### Mac
+
+```
+curl \
+  -L \
+  https://github.com/yo3jones/yconfig/releases/latest/download/yconfig-darwin-amd64 \
+  --output yconfig \
+&& chmod +x yconfig
+```
+
+### Linux
+
+```
+curl \
+  -L \
+  https://github.com/yo3jones/yconfig/releases/latest/download/yconfig-linux-amd64 \
+  --output yconfig \
+&& chmod +x yconfig
+```
+
 ## Pi
 
 ```
@@ -19,3 +63,5 @@ Host github.com
         PreferredAuthentications publickey
         IdentityFile /home/pi/.ssh/gh
 ```
+
+

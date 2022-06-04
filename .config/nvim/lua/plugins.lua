@@ -24,6 +24,51 @@ return require('packer').startup(function(use)
     end,
   })
 
+  use({
+    "PHSix/faster.nvim",
+    event = {"VimEnter *"},
+    config = function()
+      -- vim.api.nvim_set_keymap(
+      --   'n', 
+      --   'j', 
+      --   '<Plug>(faster_move_j)', 
+      --   {noremap=false, silent=true}
+      -- )
+      -- vim.api.nvim_set_keymap(
+      --   'n', 
+      --   'k', 
+      --   '<Plug>(faster_move_k)', 
+      --   {noremap=false, silent=true}
+      -- )
+      -- or 
+      vim.api.nvim_set_keymap(
+        'n', 
+        'j', 
+        '<Plug>(faster_move_gj)',
+        {noremap=false, silent=true}
+      )
+      vim.api.nvim_set_keymap(
+        'n', 
+        'k', 
+        '<Plug>(faster_move_gk)', 
+        {noremap=false, silent=true}
+      )
+      -- if you need map in visual mode
+      -- vim.api.nvim_set_keymap(
+      --   'v', 
+      --   'j', 
+      --   '<Plug>(faster_vmove_j)', 
+      --   {noremap=false, silent=true}
+      -- )
+      -- vim.api.nvim_set_keymap(
+      --   'v', 
+      --   'k',
+      --   '<Plug>(faster_vmove_k)',
+      --   {noremap=false, silent=true}
+      -- )
+    end
+  })
+
   use("junegunn/fzf")
   use("junegunn/fzf.vim")
 
@@ -95,9 +140,9 @@ return require('packer').startup(function(use)
         },
       }
       vim.api.nvim_set_keymap(
-        "n", 
-        "<C-n>", 
-        ":NvimTreeToggle<CR>", 
+        "n",
+        "<C-n>",
+        ":NvimTreeToggle<CR>",
         { noremap = true }
       )
     end
@@ -173,41 +218,20 @@ return require('packer').startup(function(use)
         },
         textobjects = {
           -- syntax-aware textobjects
-          enable = enable,
+          enable = true,
           lsp_interop = {
-            enable = enable,
+            enable = true,
             peek_definition_code = {
               ["DF"] = "@function.outer",
               ["DF"] = "@class.outer"
             }
           },
-          keymaps = {
-            ["iL"] = {
-              -- you can define your own textobjects directly here
-              go = "(function_definition) @function",
-            },
-            -- or you use the queries from supported languages with textobjects.scm
-            ["af"] = "@function.outer",
-            ["if"] = "@function.inner",
-            ["aC"] = "@class.outer",
-            ["iC"] = "@class.inner",
-            ["ac"] = "@conditional.outer",
-            ["ic"] = "@conditional.inner",
-            ["ae"] = "@block.outer",
-            ["ie"] = "@block.inner",
-            ["al"] = "@loop.outer",
-            ["il"] = "@loop.inner",
-            ["is"] = "@statement.inner",
-            ["as"] = "@statement.outer",
-            ["ad"] = "@comment.outer",
-            ["am"] = "@call.outer",
-            ["im"] = "@call.inner"
-          },
           move = {
-            enable = enable,
+            enable = true,
             set_jumps = true, -- whether to set jumps in the jumplist
             goto_next_start = {
               ["]m"] = "@function.outer",
+              ["<leader>1"] = "@function.outer",
               ["]]"] = "@class.outer"
             },
             goto_next_end = {
@@ -224,25 +248,41 @@ return require('packer').startup(function(use)
             }
           },
           select = {
-            enable = enable,
+            enable = true,
+            lookahead = true,
             keymaps = {
+              -- ["iL"] = {
+              --   -- you can define your own textobjects directly here
+              --   go = "(function_definition) @function",
+              -- },
               -- You can use the capture groups defined in textobjects.scm
               ["af"] = "@function.outer",
               ["if"] = "@function.inner",
-              ["ac"] = "@class.outer",
-              ["ic"] = "@class.inner",
+              ["aC"] = "@class.outer",
+              ["iC"] = "@class.inner",
+              ["ac"] = "@conditional.outer",
+              ["ic"] = "@conditional.inner",
+              ["ae"] = "@block.outer",
+              ["ie"] = "@block.inner",
+              ["al"] = "@loop.outer",
+              ["il"] = "@loop.inner",
+              ["is"] = "@statement.inner",
+              ["as"] = "@statement.outer",
+              ["ad"] = "@comment.outer",
+              ["am"] = "@call.outer",
+              ["im"] = "@call.inner",
               -- Or you can define your own textobjects like this
-              ["iF"] = {
-                python = "(function_definition) @function",
-                cpp = "(function_definition) @function",
-                c = "(function_definition) @function",
-                java = "(method_declaration) @function",
-                go = "(method_declaration) @function"
-              }
+              -- ["iF"] = {
+              --   python = "(function_definition) @function",
+              --   cpp = "(function_definition) @function",
+              --   c = "(function_definition) @function",
+              --   java = "(method_declaration) @function",
+              --   go = "(method_declaration) @function"
+              -- }
             }
           },
           swap = {
-            enable = enable,
+            enable = true,
             swap_next = {
               ["<leader>a"] = "@parameter.inner"
             },
@@ -299,6 +339,12 @@ return require('packer').startup(function(use)
         ":Telescope live_grep<cr>",
         { noremap = true, silent = true }
       )
+      vim.api.nvim_set_keymap(
+        "n",
+        "<leader>b",
+        ":Telescope buffers<cr>",
+        { noremap = true, silent = true }
+      )
     end
   }
 
@@ -326,7 +372,10 @@ return require('packer').startup(function(use)
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
-      "hrsh7th/cmp-cmdline"
+      "hrsh7th/cmp-cmdline",
+      "rafamadriz/friendly-snippets",
+      "molleweide/LuaSnip-snippets.nvim",
+      "hrsh7th/cmp-nvim-lsp-signature-help"
     },
     after = "LuaSnip",
     config = function()
@@ -373,6 +422,7 @@ return require('packer').startup(function(use)
           { name = "nvim_lsp" },
           { name = "luasnip" },
           { name = "buffer" },
+          { name = "nvim_lsp_signature_help" },
         },
       })
 
@@ -402,6 +452,9 @@ return require('packer').startup(function(use)
           { name = 'cmdline' }
         })
       })
+
+      require("luasnip.loaders.from_vscode").lazy_load()
+      luasnip.snippets = require("luasnip_snippets").load_snippets()
     end,
   })
 
@@ -409,7 +462,7 @@ return require('packer').startup(function(use)
     "saadparwaiz1/cmp_luasnip",
     after = "nvim-cmp",
   })
-  
+
   use({
     "windwp/nvim-autopairs",
     after = "nvim-cmp",
@@ -448,6 +501,18 @@ return require('packer').startup(function(use)
         -- or leave it empty to use the default settings
         -- refer to the configuration section below
       }
+
+      local signs = {
+          Error = " ",
+          Warn = " ",
+          Hint = " ",
+          Info = " "
+      }
+
+      for type, icon in pairs(signs) do
+          local hl = "DiagnosticSign" .. type
+          vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = hl})
+      end
     end
   }
 
@@ -491,12 +556,10 @@ return require('packer').startup(function(use)
   --   end
   -- }
 
-  -- use("ggandor/lightspeed.nvim")
-  --
-  -- use("tpope/vim-commentary")
-  -- use("tpope/vim-surround")
-  -- use("tpope/vim-repeat")
-  --
+  use("ggandor/lightspeed.nvim")
+  use("tpope/vim-surround")
+  use("tpope/vim-repeat")
+
   -- use({
   --   "mhinz/vim-signify",
   --   -- after = "tokyonight.nvim",
@@ -515,7 +578,7 @@ return require('packer').startup(function(use)
   --     vim.g.signify_sign_change_delete = "~"
   --   end,
   -- })
-  --
+
   -- use({
   --   "lukas-reineke/indent-blankline.nvim",
   --   config = function()

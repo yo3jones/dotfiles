@@ -13,3 +13,9 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
 ## lazygit
+
+## macos speed up key repeat
+# normal minimum is 15 (225 ms)
+defaults write -g InitialKeyRepeat -int 10 
+# normal minimum is 2 (30 ms) 1 15ms
+defaults write -g KeyRepeat -int 1 

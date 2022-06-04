@@ -1,5 +1,6 @@
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- lspconfig settings
 
@@ -79,6 +80,8 @@ local on_attach = function(client, bufnr)
   buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 
   vim.diagnostic.config({
+    underline = true,
+    float = true,
     virtual_text = {
       source = "always",
       format = function(diagnostic)
@@ -126,7 +129,16 @@ nvim_lsp.gopls.setup({
   settings = {
     gopls = {
       gofumpt = true,
+      experimentalPostfixCompletions = true,
+      analyses = {
+        unusedparams = true,
+        shadow = true,
+      },
+      staticcheck = true,
     }
+  },
+  init_options = {
+    usePlaceholders = true,
   }
 })
 
@@ -138,20 +150,35 @@ local Job = require("plenary.job")
 function goFormat()
   local old_lines = vim.api.nvim_buf_get_lines(0, 0, -1, true)
   local data = {}
+  local errored = false
   local fmt_job = Job:new({
     command = "gofumpt",
     args = { "-extra" },
     writer = old_lines,
+    on_exit = function(_, return_val)
+      if return_val ~= 0 then
+        errored = true
+      end
+    end,
   })
   Job:new({
     command = "golines",
-    args = { "--max-len=80" },
+    args = { "--max-len=80", "--chain-split-dots" },
     writer = fmt_job,
     on_stdout = function(_, d, _)
       table.insert(data, d)
-    end
+    end,
+    on_exit = function(_, return_val)
+      if return_val ~= 0 then
+        errored = true
+      end
+    end,
   }):sync()
-  vim.api.nvim_buf_set_lines(0, 0, -1, false, data)
+
+  if errored == false then
+    -- TODO check if there are any changes first
+    vim.api.nvim_buf_set_lines(0, 0, -1, false, data)
+  end
 end
 
 -- vim.cmd([[autocmd BufWritePre *.go lua vim.lsp.buf.formatting_sync(nil, 100)]])

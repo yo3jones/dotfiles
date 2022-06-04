@@ -10,3 +10,5 @@ generate:
   - .yconfig.yaml
   - .gitignore
   - .yconfig.yaml
+
+  link: true

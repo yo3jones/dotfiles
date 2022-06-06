@@ -195,7 +195,7 @@ return require('packer').startup(function(use)
     "nvim-treesitter/nvim-treesitter",
     config = function()
       require("nvim-treesitter.configs").setup({
-        ensure_installed = "all",
+        -- ensure_installed = "all",
         highlight = {
           enable = true,
           -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
@@ -214,7 +214,7 @@ return require('packer').startup(function(use)
           },
         },
         indent = {
-          enable = true
+          enable = false
         },
         textobjects = {
           -- syntax-aware textobjects
@@ -330,12 +330,6 @@ return require('packer').startup(function(use)
       vim.api.nvim_set_keymap(
         "n",
         "<leader>p",
-        ":Telescope buffers<cr>",
-        { noremap = true, silent = true }
-      );
-      vim.api.nvim_set_keymap(
-        "n",
-        "<leader>r",
         ":Telescope live_grep<cr>",
         { noremap = true, silent = true }
       )
@@ -343,6 +337,12 @@ return require('packer').startup(function(use)
         "n",
         "<leader>b",
         ":Telescope buffers<cr>",
+        { noremap = true, silent = true }
+      )
+      vim.api.nvim_set_keymap(
+        "n",
+        "<leader>g",
+        ":Telescope treesitter<cr>",
         { noremap = true, silent = true }
       )
     end
@@ -513,6 +513,13 @@ return require('packer').startup(function(use)
           local hl = "DiagnosticSign" .. type
           vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = hl})
       end
+
+      vim.api.nvim_set_keymap(
+        "n",
+        "<leader>t",
+        ":TroubleToggle<cr>",
+        { noremap = true, silent = true }
+      )
     end
   }
 

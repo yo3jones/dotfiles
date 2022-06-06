@@ -30,6 +30,7 @@ curl \
   https://github.com/yo3jones/yconfig/releases/latest/download/yconfig-darwin-amd64 \
   --output yconfig \
 && chmod +x yconfig
+&& sudo mv yconfig /usr/local/bin
 ```
 
 ### Linux

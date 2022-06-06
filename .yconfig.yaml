@@ -17,3 +17,103 @@ generate:
   link: true
 
   delay: 0
+
+install:
+
+  groups:
+
+    - name: deps
+      commands:
+        - os: linux
+          command: |-
+            sudo apt update \
+            && sudo apt install -y \
+              git \
+              vim \
+              fzf \
+              ripgrep \
+              zsh \
+              curl \
+              wget \
+              bat \
+              tmux \
+              cmake \
+              automake \
+              libtool \
+              ninja-build \
+              gettext \
+              libtool-bin \
+              autoconf \
+              g++ \
+              pkg-config \
+              unzip \
+              doxygen
+        - os: darwin
+          command: |-
+            brew install \
+              git \
+              vim \
+              fzf \
+              ripgrep \
+              zsh \
+              curl \
+              wget \
+              bat \
+              tmux \
+              lazygit
+        - |-
+          sh -c \
+            "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+        - |-
+          git clone --depth=1 \
+            https://github.com/romkatv/powerlevel10k.git \
+            ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+        - os: darwin
+          command: defaults write -g InitialKeyRepeat -int 10
+        - os: darwin
+          command: defaults write -g KeyRepeat -int 1 
+        - git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+        - |- 
+          git clone \
+            https://github.com/zsh-users/zsh-autosuggestions \
+            ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+    - name: go
+      commands:
+        - os: darwin
+          arch: arm64
+          command: |-
+            wget https://go.dev/dl/go1.18.3.darwin-arm64.pkg \
+            && open go1.18.3.darwin-arm64.pkg
+
+    - name: go-after
+      commands:
+        - go install mvdan.cc/gofumpt@latest
+        - go install github.com/segmentio/golines@latest
+        - go install golang.org/x/tools/cmd/goimports@latest
+        - go install github.com/nametake/golangci-lint-langserver@latest
+        - go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+
+    - name: nvim
+      commands:
+        - os: darwin
+          command: brew install neovim
+        - os: linux
+          command: |-
+            git clone https://github.com/neovim/neovim \
+            && cd neovim \
+            && git checkout stable \
+            && make \
+            && sudo make install \
+            && cd .. \
+            && rm -rf neovim
+        - |-
+          rm -rf ~/.local/share/nvim/site/pack/packer/start/packer.nvim \
+          ; git clone --depth 1 https://github.com/wbthomason/packer.nvim \
+           ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+        - nvim --headless -c "autocmd User PackerComplete quitall" -c "PackerSync"
+        - nvim --headless -c "TSInstallSync all" -c "quitall"
+        - nvim --headless -c "TSUpdateSync" -c "quitall"
+
+    - name: key-repeat
+

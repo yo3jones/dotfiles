@@ -567,6 +567,27 @@ return require('packer').startup(function(use)
   use("tpope/vim-surround")
   use("tpope/vim-repeat")
 
+  use {
+    'vimwiki/vimwiki',
+    config = function()
+      -- nmap  <Leader>wv <Plug>VimwikiVSplitLink
+      vim.g.vimwiki_list = {
+        {
+          name = 'Work',
+          path = '~/notes/work/',
+          syntax = 'markdown',
+          ext = '.md'
+        },
+        {
+          name = 'Personal',
+          path = '~/notes/personal/',
+          syntax = 'markdown',
+          ext = '.md'
+        },
+      }
+    end
+  }
+
   -- use({
   --   "mhinz/vim-signify",
   --   -- after = "tokyonight.nvim",

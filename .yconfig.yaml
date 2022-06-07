@@ -48,6 +48,8 @@ install:
               pkg-config \
               unzip \
               doxygen
+# To install useful keybindings and fuzzy completion:
+#   /Users/cpj/.brew/opt/fzf/install
         - os: darwin
           command: |-
             brew install \
@@ -115,5 +117,5 @@ install:
         - nvim --headless -c "TSInstallSync all" -c "quitall"
         - nvim --headless -c "TSUpdateSync" -c "quitall"
 
-    - name: key-repeat
+#    - name: key-repeat
 

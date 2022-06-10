@@ -22,6 +22,9 @@ install:
 
   groups:
 
+    # Opener
+    # https://github.com/superbrothers/opener
+    
     - name: deps
       commands:
         - os: linux
@@ -61,8 +64,7 @@ install:
               curl \
               wget \
               bat \
-              tmux \
-              lazygit
+              tmux
         - |-
           sh -c \
             "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -80,6 +82,17 @@ install:
             https://github.com/zsh-users/zsh-autosuggestions \
             ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
+    - name: gh
+      commands:
+        - os: linux
+          arch: amd64
+          command: |-
+            curl \
+              -fL \
+              https://github.com/cli/cli/releases/download/v2.12.1/gh_2.12.1_linux_amd64.deb \
+              --output gh_2.12.1_linux_amd64.deb \
+            && sudo apt install -y ./gh_2.12.1_linux_amd64.deb
+
     - name: go
       commands:
         - os: darwin
@@ -95,6 +108,13 @@ install:
         - go install golang.org/x/tools/cmd/goimports@latest
         - go install github.com/nametake/golangci-lint-langserver@latest
         - go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+
+    - name: lazygit
+      commands:
+        - os: linux
+          command: go install github.com/jesseduffield/lazygit@latest
+        - os: darwin
+          command: brew install jesseduffield/lazygit/lazygit
 
     - name: nvim
       commands:

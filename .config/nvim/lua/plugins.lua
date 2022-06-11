@@ -700,6 +700,11 @@ return require('packer').startup(function(use)
   --   end,
   -- })
 
+  {{- if .ForTag "work" }}
+
+  use({ "/usr/share/fb-editor-support/nvim", as = "meta.nvim" })
+  {{- end }}
+
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if packer_bootstrap then

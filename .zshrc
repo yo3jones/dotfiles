@@ -5,6 +5,14 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+{{ if .ForTag "work" -}}
+
+[[ $- != *i* ]] && return
+source /etc/zshrc
+source /usr/facebook/ops/rc/master.zshrc
+
+{{ end -}}
+
 # TODO should this be only linux?
 # alacritty stops colors
 export TERM=xterm-256color

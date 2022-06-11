@@ -20,6 +20,10 @@ generate:
 
 install:
 
+## for work
+# curl $(fwdproxy-config curl) -sSL https://raw.githubusercontent.com/alacritty/alacritty/master/extra/alacritty.info | tic -x -
+
+
   groups:
 
     # Opener

@@ -79,15 +79,15 @@ setup:
         ; git clone --depth 1 https://github.com/wbthomason/packer.nvim \
           ~/.local/share/nvim/site/pack/packer/start/packer.nvim \
         && nvim --headless -c "autocmd User PackerComplete quitall" -c "PackerSync"
+  - name: neovim work
+    tags: [nvim, work!]
+    script: |-
+      nvim --headless -c "SyncMetaLS" -c "quitall" \
   - name: neovim treesitter
     tags: [nvim, work]
     script: |-
       nvim --headless -c "TSInstallSync all" -c "quitall" \
       && nvim --headless -c "TSUpdateSync" -c "quitall"
-  - name: neovim work
-    tags: [nvim, work!]
-    script: |-
-      nvim --headless -c "SyncMetaLS" -c "quitall" \
 
 install:
 

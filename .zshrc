@@ -132,7 +132,9 @@ alias bat="batcat"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-{{ if eq .OS "linux" -}}
+{{- if .ForTag "work" }}
+{{- else if eq .OS "linux" }}
+
 source /usr/share/doc/fzf/examples/key-bindings.zsh
 source /usr/share/doc/fzf/examples/completion.zsh
-{{-  end -}}
+{{-  end }}

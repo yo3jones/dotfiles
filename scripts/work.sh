@@ -6,12 +6,16 @@ set -e
 # cd dotfiles
 # ./scripts/work.sh
 
-curl -L \
-  $(fwdproxy-config curl) \
-  https://github.com/yo3jones/yconfig/releases/latest/download/yconfig-linux-amd64 \
-  --output yconfig
+# curl -L \
+#   $(fwdproxy-config curl) \
+#   https://github.com/yo3jones/yconfig/releases/latest/download/yconfig-linux-amd64 \
+#   --output yconfig
+# chmod +x yconfig
+
+rm yconfig \
+; cp ~/yconfig .
 chmod +x yconfig
 
-yconfig generate --tag work
+./yconfig generate --tag work
 
-yconfig setup --tag work
+./yconfig setup --tag work

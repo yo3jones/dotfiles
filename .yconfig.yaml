@@ -20,7 +20,7 @@ generate:
 
 scripts:
   - cmd: bash
-    args: -cli
+    args: -cl
 
 packageManagers:
   - os: linux

@@ -327,12 +327,21 @@ return require('packer').startup(function(use)
         ":Telescope find_files<cr>",
         { noremap = true, silent = true }
       );
+      {{- if .ForTag "work" }}
       vim.api.nvim_set_keymap(
         "n",
         "<leader>p",
-        ":Telescope live_grep<cr>",
+        [[<cmd>Telescope myles<CR>]],
         { noremap = true, silent = true }
       )
+      {{ else }}
+       vim.api.nvim_set_keymap(
+         "n",
+         "<leader>p",
+         ":Telescope live_grep<cr>",
+         { noremap = true, silent = true }
+       )
+      {{ end -}}
       vim.api.nvim_set_keymap(
         "n",
         "<leader>b",

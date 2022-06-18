@@ -96,6 +96,10 @@ setup:
       nvim --headless -c "TSInstallSync all" -c "quitall" \
       && nvim --headless -c "TSUpdateSync" -c "quitall"
 
+  - name: go versioner
+    tag: go
+    script: go install github.com/yo3jones/versioner
+
 install:
 
 ## for work

@@ -320,6 +320,7 @@ return require('packer').startup(function(use)
         }
       }
       require('telescope').load_extension('fzf')
+      require("telescope").load_extension("session-lens")
 
       vim.api.nvim_set_keymap(
         "n",
@@ -352,6 +353,12 @@ return require('packer').startup(function(use)
         "n",
         "<leader>g",
         ":Telescope treesitter<cr>",
+        { noremap = true, silent = true }
+      )
+      vim.api.nvim_set_keymap(
+        "n",
+        "<leader>s",
+        ":Telescope session-lens search_session<cr>",
         { noremap = true, silent = true }
       )
     end
@@ -594,6 +601,27 @@ return require('packer').startup(function(use)
           ext = '.md'
         },
       }
+    end
+  }
+
+  use {
+    'rmagatti/auto-session',
+    config = function()
+      require('auto-session').setup {
+        -- log_level = 'info',
+        -- auto_session_suppress_dirs = {'~/', '~/Projects'}
+        auto_session_enable_last_session = false,
+        auto_restore_enabled = false,
+        auto_save_enabled = false,
+      }
+      vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal"
+    end
+  }
+
+  use {
+    'rmagatti/session-lens',
+    config = function()
+      require('session-lens').setup({--[[your custom config--]]})
     end
   }
 

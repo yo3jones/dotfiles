@@ -81,7 +81,7 @@ setup:
     dest: ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
   - name: neovim packer sync
-    tags: [nvim, work]
+    tags: [nvim, work, sync]
     script: |-
         nvim --headless -c "autocmd User PackerComplete quitall" -c "PackerSync"
 

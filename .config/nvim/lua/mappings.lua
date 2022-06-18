@@ -35,6 +35,7 @@ vim.cmd([[
   command! -nargs=0 ToggleRelativeNumbers lua toggleRelativeNumbers()
   command! -nargs=0 ToggleCursorColumn lua toggleCursorColumn()
   command! -nargs=0 ToggleFastMode lua toggleFastMode()
+  command! -nargs=1 SaveSessionName lua saveSession("<args>")
 ]])
 
 vim.api.nvim_set_keymap(
@@ -43,3 +44,9 @@ vim.api.nvim_set_keymap(
   ":ToggleFastMode<cr>",
   { noremap = true, silent = true }
 )
+
+function saveSession(name)
+  local auto_session = require("auto-session")
+  local sessions_dir = auto_session.conf.auto_session_root_dir .. name
+  auto_session.SaveSession(sessions_dir)
+end

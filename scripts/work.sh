@@ -12,8 +12,7 @@ set -e
 #   --output yconfig
 # chmod +x yconfig
 
-rm yconfig \
-; cp ~/yconfig .
+cp ~/yconfig .
 chmod +x yconfig
 
 ./yconfig generate --tag work

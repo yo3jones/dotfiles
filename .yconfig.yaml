@@ -34,6 +34,7 @@ setup:
 
   - name: Oh My Zsh
     type: script
+    continueOnError: true
     entries:
       - script: |-
           curl -L \
@@ -82,19 +83,26 @@ setup:
 
   - name: neovim packer sync
     tags: [nvim, work, sync]
+    retry: 2
     script: |-
         nvim --headless -c "autocmd User PackerComplete quitall" -c "PackerSync"
 
   - name: neovim work
     tags: [nvim, work!]
+    retry: 2
     script: |-
       nvim --headless -c "SyncMetaLS" -c "quitall" \
 
-  - name: neovim treesitter
+  - name: neovim treesitter install
     tags: [nvim, work]
+    retry: 2
     script: |-
-      nvim --headless -c "TSInstallSync all" -c "quitall" \
-      && nvim --headless -c "TSUpdateSync" -c "quitall"
+      nvim --headless -c "TSInstallSync all" -c "quitall"
+
+  - name: neovim treesitter update
+    tags: [nvim, manual!]
+    script: |-
+      nvim --headless -c "TSUpdateSync" -c "quitall"
 
   - name: go versioner
     tag: go

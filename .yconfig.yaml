@@ -83,6 +83,7 @@ setup:
 
   - name: neovim packer sync
     tags: [nvim, work, sync]
+    continueOnError: true
     retry: 2
     script: |-
         nvim --headless -c "autocmd User PackerComplete quitall" -c "PackerSync"

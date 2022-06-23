@@ -1,11 +1,11 @@
 vim.cmd [[packadd packer.nvim]]
 
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
-  augroup end
-]])
+-- vim.cmd([[
+--   augroup packer_user_config
+--     autocmd!
+--     autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+--   augroup end
+-- ]])
 
 return require('packer').startup(function(use)
   -- Packer can manage itself
@@ -328,21 +328,21 @@ return require('packer').startup(function(use)
         ":Telescope find_files<cr>",
         { noremap = true, silent = true }
       );
-      {{- if .ForTag "work" }}
+      -- {{- if .ForTag "work" }}
       vim.api.nvim_set_keymap(
         "n",
         "<leader>p",
         [[<cmd>Telescope myles<CR>]],
         { noremap = true, silent = true }
       )
-      {{ else }}
+      -- {{- else }}
        vim.api.nvim_set_keymap(
          "n",
          "<leader>p",
          ":Telescope live_grep<cr>",
          { noremap = true, silent = true }
        )
-      {{ end -}}
+       -- {{- end }}
       vim.api.nvim_set_keymap(
         "n",
         "<leader>b",
@@ -737,14 +737,14 @@ return require('packer').startup(function(use)
   --   end,
   -- })
 
-  {{- if .ForTag "work" }}
+  -- {{- if .ForTag "work" }}
 
   use({ "/usr/share/fb-editor-support/nvim", as = "meta.nvim" })
-  {{- end }}
+  -- {{- end }}
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
-  if packer_bootstrap then
-    require('packer').sync()
-  end
+  -- if packer_bootstrap then
+  --   require('packer').sync()
+  -- end
 end)

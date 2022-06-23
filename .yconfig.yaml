@@ -105,9 +105,41 @@ setup:
     script: |-
       nvim --headless -c "TSUpdateSync" -c "quitall"
 
+  - name: neovim reload dotfiles
+    tags: [nvim, reload!]
+    script: yconfig generate
+
+  - name: neovim reload dotfiles work
+    tags: [nvim, reload! work!]
+    script: ./yconfig generate --tag work
+
+  - name: neovim reload sync
+    tags: [nvim, reload!]
+    script: |-
+      nvim --headless -c "autocmd User PackerComplete quitall" -c "PackerSync"
+
+  # GO
+  - name: go
+    tags: go
+    packages: go
+  - name: go fumpt
+    tags: go
+    script: go install mvdan.cc/gofumpt@latest
+  - name: go golines
+    tags: go
+    script: go install github.com/segmentio/golines@latest
+  - name: go goimports
+    tags: go
+    script: go install golang.org/x/tools/cmd/goimports@latest
+  - name: go golangci-lint-langserver
+    tags: go
+    script: go install github.com/nametake/golangci-lint-langserver@latest
+  - name: go golangci-lint
+    tags: go
+    script: go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
   - name: go versioner
     tag: go
-    script: go install github.com/yo3jones/versioner
+    script: go install github.com/yo3jones/versioner@latest
 
 install:
 

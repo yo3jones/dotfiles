@@ -587,6 +587,16 @@ return require('packer').startup(function(use)
     'vimwiki/vimwiki',
     config = function()
       -- nmap  <Leader>wv <Plug>VimwikiVSplitLink
+      -- {{- if .ForTag "work-wiki" }}
+      vim.g.vimwiki_list = {
+        {
+          name = 'Work',
+          path = '~/wiki/',
+          syntax = 'markdown',
+          ext = '.md'
+        },
+      }
+      -- {{- else }}
       vim.g.vimwiki_list = {
         {
           name = 'Work',
@@ -601,6 +611,7 @@ return require('packer').startup(function(use)
           ext = '.md'
         },
       }
+      -- {{- end }}
     end
   }
 

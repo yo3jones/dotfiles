@@ -30,7 +30,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
   buf_set_keymap(
     "n",
-    "<C-k>",
+    "<leader>k",
     "<cmd>lua vim.lsp.buf.signature_help()<CR>",
     opts
   )

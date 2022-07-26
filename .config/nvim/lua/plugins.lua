@@ -196,6 +196,7 @@ return require('packer').startup(function(use)
     config = function()
       require("nvim-treesitter.configs").setup({
         -- ensure_installed = "all",
+        ensure_installed = { "norg" },
         highlight = {
           enable = true,
           -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
@@ -439,6 +440,7 @@ return require('packer').startup(function(use)
           { name = "luasnip" },
           { name = "buffer" },
           { name = "nvim_lsp_signature_help" },
+          { name = "neorg" },
         },
       })
 
@@ -752,6 +754,35 @@ return require('packer').startup(function(use)
 
   use({ "/usr/share/fb-editor-support/nvim", as = "meta.nvim" })
   -- {{- end }}
+  
+  use {
+    "nvim-neorg/neorg",
+    -- tag = "*",
+    ft = "norg",
+    after = "nvim-treesitter",
+    config = function()
+      require('neorg').setup {
+        load = {
+          ["core.defaults"] = {},
+          ["core.norg.dirman"] = {
+            config = {
+              workspaces ={ 
+                notes = "~/neorg",
+              }
+            } 
+          },
+          ["core.norg.completion"] = {
+            config = {
+              engine = "nvim-cmp",
+            },
+          },
+          ["core.integrations.nvim-cmp"] = {
+            config = {}
+          },
+        }
+      }
+    end,
+  }
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

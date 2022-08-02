@@ -86,3 +86,6 @@ vim.cmd([[autocmd BufWritePre *.go lua goFormat()]])
 --     capabilities = capabilities,
 --   })
 -- end
+
+-- trim white space
+vim.cmd [[ autocmd BufWritePre * %s/\s\+$//e ]]

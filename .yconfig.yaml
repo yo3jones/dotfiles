@@ -9,6 +9,7 @@ generate:
   - .config/*
   - .config/*/*
   - .config/*/*/*
+  - .doom.d/*
 
   exclude:
   - .gitignore
@@ -141,6 +142,25 @@ setup:
     tag: go
     script: go install github.com/yo3jones/versioner@latest
 
+  # Emacs
+  - name: Emacs
+    tags: emacs
+    entries:
+      - os: darwin
+        script: brew install --cask emacs
+  - name: Emacs Mac
+    tags: mac-emacs!
+    script: |-
+      brew tap railwaycat/emacsmacport \
+      && brew install --cask emacs-mac
+  - name: Doom
+    tags: [ emacs, doom ]
+    repo: doomemacs/doomemacs
+    dest: ~/.emacs.d
+  - name: Doom Install
+    tags: [ emacs, doom ]
+    script: ~/.emacs.d/bin/doom install --no-env --no-config --fonts --force
+
 install:
 
 ## for work
@@ -151,7 +171,7 @@ install:
 
     # Opener
     # https://github.com/superbrothers/opener
-    
+
     - name: deps
       commands:
         - os: linux
@@ -202,9 +222,9 @@ install:
         - os: darwin
           command: defaults write -g InitialKeyRepeat -int 10
         - os: darwin
-          command: defaults write -g KeyRepeat -int 1 
+          command: defaults write -g KeyRepeat -int 1
         - git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-        - |- 
+        - |-
           git clone \
             https://github.com/zsh-users/zsh-autosuggestions \
             ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions

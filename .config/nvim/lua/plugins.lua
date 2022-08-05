@@ -29,39 +29,39 @@ return require('packer').startup(function(use)
     event = {"VimEnter *"},
     config = function()
       -- vim.api.nvim_set_keymap(
-      --   'n', 
-      --   'j', 
-      --   '<Plug>(faster_move_j)', 
+      --   'n',
+      --   'j',
+      --   '<Plug>(faster_move_j)',
       --   {noremap=false, silent=true}
       -- )
       -- vim.api.nvim_set_keymap(
-      --   'n', 
-      --   'k', 
-      --   '<Plug>(faster_move_k)', 
+      --   'n',
+      --   'k',
+      --   '<Plug>(faster_move_k)',
       --   {noremap=false, silent=true}
       -- )
-      -- or 
+      -- or
       vim.api.nvim_set_keymap(
-        'n', 
-        'j', 
+        'n',
+        'j',
         '<Plug>(faster_move_gj)',
         {noremap=false, silent=true}
       )
       vim.api.nvim_set_keymap(
-        'n', 
-        'k', 
-        '<Plug>(faster_move_gk)', 
+        'n',
+        'k',
+        '<Plug>(faster_move_gk)',
         {noremap=false, silent=true}
       )
       -- if you need map in visual mode
       -- vim.api.nvim_set_keymap(
-      --   'v', 
-      --   'j', 
-      --   '<Plug>(faster_vmove_j)', 
+      --   'v',
+      --   'j',
+      --   '<Plug>(faster_vmove_j)',
       --   {noremap=false, silent=true}
       -- )
       -- vim.api.nvim_set_keymap(
-      --   'v', 
+      --   'v',
       --   'k',
       --   '<Plug>(faster_vmove_k)',
       --   {noremap=false, silent=true}
@@ -306,17 +306,21 @@ return require('packer').startup(function(use)
     config = function ()
       local actions = require("telescope.actions")
       require('telescope').setup {
-        defaults = {
-          mappings = {
-            i = {
-              ["<esc>"] = actions.close
-            },
-          }
-        },
+        defaults = {},
         pickers = {
           find_files = {
             hidden = true
-          }
+          },
+          buffers = {
+            mappings = {
+              i = {
+                ["<C-d>"] = require('telescope.actions').delete_buffer
+              },
+              n = {
+                ["<C-d>"] = require('telescope.actions').delete_buffer
+              },
+            }
+          },
         }
       }
       require('telescope').load_extension('fzf')
@@ -541,7 +545,7 @@ return require('packer').startup(function(use)
 
   -- use 'mfussenegger/nvim-dap'
   -- use 'rcarriga/nvim-dap-ui'
-  -- use 'theHamsta/nvim-dap-virtual-text' 
+  -- use 'theHamsta/nvim-dap-virtual-text'
   -- use 'ray-x/guihua.lua' -- recommanded if need floating window support
   -- use{
   --   'ray-x/go.nvim',

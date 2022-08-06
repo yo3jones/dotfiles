@@ -147,19 +147,16 @@ setup:
     tags: emacs
     entries:
       - os: darwin
-        script: brew install --cask emacs
-  - name: Emacs Mac
-    tags: mac-emacs!
-    script: |-
-      brew tap railwaycat/emacsmacport \
-      && brew install --cask emacs-mac
+        script: |-
+          brew tap railwaycat/emacsmacport \
+          && brew install --cask emacs-mac
   - name: Doom
     tags: [ emacs, doom ]
     repo: doomemacs/doomemacs
     dest: ~/.emacs.d
   - name: Doom Install
     tags: [ emacs, doom ]
-    script: ~/.emacs.d/bin/doom install --no-env --no-config --fonts --force
+    script: ~/.emacs.d/bin/doom install --env --no-config --fonts --force
 
 install:
 

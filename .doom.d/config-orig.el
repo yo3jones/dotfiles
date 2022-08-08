@@ -38,21 +38,14 @@
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'doom-gruvbox)
 
+;; This determines the style of line numbers in effect. If set to `nil', line
+;; numbers are disabled. For relative line numbers, set this to `relative'.
+(setq display-line-numbers-type `relative)
+
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
-(setq org-agenda-files '("~/org/" "~/org/projects/"))
-(setq org-todo-keywords
-      '((sequence "INBOX" "WAITING_ON" "NEXT" "IN_PROGRESS" "|" "DONE")))
 
-(require 'key-chord)
-(key-chord-mode t)
-;; (key-chord-define-global "fd" 'evil-normal-state)
-(key-chord-define evil-insert-state-map "jj" 'evil-normal-state)
-
-  (use-package org-bullets
-    :config
-    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
@@ -86,16 +79,11 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-;; This determines the style of line numbers in effect. If set to `nil', line
-;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type `relative)
+(require 'key-chord)
+(key-chord-mode t)
+;; (key-chord-define-global "fd" 'evil-normal-state)
+(key-chord-define evil-insert-state-map "jj" 'evil-normal-state)
 
-;; Automatically tangle our Emacs.org config file when we save it
-(defun yo3/org-babel-tangle-config ()
-  (when (string-equal (buffer-file-name)
-                      (expand-file-name "~/dotfiles/.doom.d/config.org"))
-    ;; Dynamic scoping to the rescue
-    (let ((org-confirm-babel-evaluate nil))
-      (org-babel-tangle)))
-
-(add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'yo3/org-babel-tangle-config))))
+  (use-package org-bullets
+    :config
+    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))

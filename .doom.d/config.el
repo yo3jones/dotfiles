@@ -47,7 +47,7 @@
                          "~/org/people/"
                          "~/org/journal/"))
 (setq org-todo-keywords
-      '((sequence "INBOX" "WAITING_ON" "NEXT" "IN_PROGRESS" "|" "DONE")))
+      '((sequence "NEXT" "IN_PROGRESS" "WAITING_ON" "|" "DONE")))
 
 (require 'key-chord)
 (key-chord-mode t)

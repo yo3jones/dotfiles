@@ -30,6 +30,34 @@ packageManagers:
     script: brew install
 
 setup:
+  # Homebrew
+  - name: Homebrew
+    os: darwin
+    script: |-
+      /bin/bash -c \
+      "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+  # Update Deps
+  - name: Update Mac Deps
+    os: darwin
+    script: brew updatee
+
+  # Mac Deps
+  - name: Mac Deps
+    os: darwin
+    packages:
+      - git
+      - vim
+      - fzf
+      - ripgrep
+      - tmux
+      - unzip
+
+  # Mac Fonts
+  # https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/JetBrainsMono.zip
+
+  # Alacritty
+
   - name: neofetch
     packages: neofetch
 

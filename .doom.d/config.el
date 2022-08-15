@@ -35,6 +35,9 @@
 ;; refresh your font settings. If Emacs still can't find your font, it likely
 ;; wasn't installed correctly. Font issues are rarely Doom issues!
 
+(setq +zen-text-scale 0)
+(setq +zen-window-divider-size 4)
+
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
@@ -42,23 +45,31 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
-(setq org-agenda-files '(
-                         "~/org/"
-                         "~/org/projects/"
-                         "~/org/people/"
-                         "~/org/journal/"))
-(setq org-todo-keywords
-      '((sequence "NEXT" "IN_PROGRESS" "WAITING_ON" "|" "DONE")))
+(after! org
+  (setq org-directory "~/org/")
+  (setq org-agenda-files '(
+                           "~/org/"
+                           "~/org/projects/"
+                           "~/org/people/"
+                           "~/org/journal/"))
+  (setq org-todo-keywords
+        '((sequence "NEXT" "IN_PROGRESS" "WAITING_ON" "|" "DONE")))
 
-(require 'key-chord)
-(key-chord-mode t)
-;; (key-chord-define-global "fd" 'evil-normal-state)
-(key-chord-define evil-insert-state-map "jj" 'evil-normal-state)
+  (custom-set-faces
+   '(org-level-1 ((t (:inherit outline-1 :height 1.2))))
+   '(org-level-2 ((t (:inherit outline-2 :height 1.1))))
+   '(org-level-3 ((t (:inherit outline-3 :height 1.1))))
+   '(org-level-4 ((t (:inherit outline-4 :height 1.0))))))
 
-  (use-package org-bullets
+(use-package! org-bullets
     :config
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
+(use-package! key-chord
+  :config
+  (key-chord-mode t)
+  ;; (key-chord-define-global "fd" 'evil-normal-state)
+  (key-chord-define evil-insert-state-map "jj" 'evil-normal-state))
 
 (defun yo3/on-go-mode-load ()
   (setq flycheck-checker 'golangci-lint)

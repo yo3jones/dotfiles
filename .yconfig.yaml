@@ -37,32 +37,83 @@ setup:
       /bin/bash -c \
       "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
+  # 1Password
+  # Mac App Store
+
+  # Caffeine
+  # https://www.macupdate.com/app/mac/24120/caffeine
+
+  # AirBuddy
+  # https://v2.airbuddy.app/
+
+  # Mac Fast Key Repeat
+  # https://apple.stackexchange.com/questions/10467/how-to-increase-keyboard-key-repeat-rate-on-os-x
+  #
+  # defaults write -g InitialKeyRepeat -int 10 # normal minimum is 15 (225 ms)
+  # defaults write -g KeyRepeat -int 1 # normal minimum is 2 (30 ms)
+  #
+  # Requires reboot (or log out)
+  - name: KeyRepeat
+    os: darwin
+    script: |-
+      defaults write -g InitialKeyRepeat -int 10 \
+      && defaults write -g KeyRepeat -int 1
+
   # Update Deps
   - name: Update Mac Deps
     os: darwin
     script: brew updatee
 
-  # Mac Deps
-  - name: Mac Deps
+  # Packages
+  - name: Packages
+    tags: [ zsh, tmux, nvim, emacs ]
+    entries:
+      - os: darwin
+        packages:
+          - git
+          - vim
+          - fzf
+          - ripgrep
+          - tmux
+          - unzip
+          - curl
+          - alacritty
+          - neofetch
+          - zsh
+          - neovim
+          - cmake
+          - libtool
+
+  # Amethyst
+  # Tiling Window Manager
+  # brew install --cask amethyst
+  - name: Amethyst
     os: darwin
-    packages:
-      - git
-      - vim
-      - fzf
-      - ripgrep
-      - tmux
-      - unzip
+    script: brew install --cask amethyst
 
   # Mac Fonts
   # https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/JetBrainsMono.zip
+  - name: Fonts
+    os: darwin
+    script: |-
+      rm -rf .fonts \
+      && mkdir .fonts \
+      && mkdir .fonts/jetbrains \
+      && curl -L \
+        https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/JetBrainsMono.zip \
+        --output .fonts/JetBrainsMono.zip \
+      && unzip .fonts/JetBrainsMono.zip -d .fonts/jetbrains/ \
+      && rm .fonts/jetbrains/*Windows*.ttf \
+      && cp .fonts/jetbrains/*.ttf /Library/Fonts/ \
+      && rm -rf .fonts
+
 
   # Alacritty
-
-  - name: neofetch
-    packages: neofetch
+  # Terminal Emulator
+  # https://github.com/alacritty/alacritty
 
   - name: Oh My Zsh
-    type: script
+    tags: zsh
     continueOnError: true
     entries:
       - script: |-
@@ -87,12 +138,12 @@ setup:
           && rm install-zsh.sh
 
   - name: Powerlevel10k
-    tags: work
+    tags: [ zsh, work ]
     repo: romkatv/powerlevel10k
     dest: ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 
   - name: zsh-autosuggestions
-    tags: work
+    tags: [ zsh, work ]
     repo: zsh-users/zsh-autosuggestions
     dest: ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
@@ -100,8 +151,10 @@ setup:
     tags: work!
     script: chmod +x $HOME/.fzf/bin/fzf
 
+    # Tmux Package Manager
+    # ctrl-b I
   - name: tmux tpm
-    tags: work
+    tags: [ tmux, work ]
     repo: tmux-plugins/tpm
     dest: ~/.tmux/plugins/tpm
 
@@ -154,30 +207,67 @@ setup:
   - name: go fumpt
     tags: go
     script: go install mvdan.cc/gofumpt@latest
-  - name: go golines
+  - name: golines
     tags: go
     script: go install github.com/segmentio/golines@latest
   - name: go goimports
     tags: go
     script: go install golang.org/x/tools/cmd/goimports@latest
-  - name: go golangci-lint-langserver
+  - name: golangci-lint-langserver
     tags: go
     script: go install github.com/nametake/golangci-lint-langserver@latest
-  - name: go golangci-lint
+  # - name: go golangci-lint
+  #   tags: go
+  #   script: go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+  - name: golangci-lint
     tags: go
-    script: go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+    packages: golangci-lint
   - name: go versioner
-    tag: go
+    tags: go
     script: go install github.com/yo3jones/versioner@latest
+  - name: gopls
+    tags: go
+    script: go install golang.org/x/tools/gopls@latest
+  - name: gore
+    tags: go
+    script: go install github.com/x-motemen/gore/cmd/gore@latest
+  - name: gocode
+    tags: go
+    script: go install github.com/stamblerre/gocode@latest
+  - name: godoc
+    tags: go
+    script: go install golang.org/x/tools/cmd/godoc@latest
+  - name: goimports
+    tags: go
+    script: go install golang.org/x/tools/cmd/goimports@latest
+  - name: gorename
+    tags: go
+    script: go install golang.org/x/tools/cmd/gorename@latest
+  - name: guru
+    tags: go
+    script: go install golang.org/x/tools/cmd/guru@latest
+  - name: gotests
+    tags: go
+    script: go install github.com/cweill/gotests/gotests@latest
+  - name: gomodifytags
+    tags: go
+    script: go install github.com/fatih/gomodifytags@latest
 
   # Emacs
+  # - name: Emacs
+  #   tags: emacs
+  #   entries:
+  #     - os: darwin
+  #       script: |-
+  #         brew tap railwaycat/emacsmacport \
+  #         && brew install --cask emacs-mac
   - name: Emacs
     tags: emacs
     entries:
       - os: darwin
         script: |-
-          brew tap railwaycat/emacsmacport \
-          && brew install --cask emacs-mac
+          brew tap d12frosted/emacs-plus \
+          && brew install emacs-plus
   - name: Doom
     tags: [ emacs, doom ]
     repo: doomemacs/doomemacs
@@ -185,6 +275,9 @@ setup:
   - name: Doom Install
     tags: [ emacs, doom ]
     script: ~/.emacs.d/bin/doom install --env --no-config --fonts --force
+  - name: Doom Sync
+    tags: [ emacs, doom ]
+    script: ~/.emacs.d/bin/doom sync
 
 install:
 

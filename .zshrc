@@ -19,10 +19,13 @@ export TERM=xterm-256color
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH="/opt/homebrew/bin:$PATH"
 export PATH="/usr/local/go/bin:$HOME/go/bin:$PATH"
 export PATH="$HOME/.brew/bin:$HOME/.brew/sbin:$PATH"
 export PATH="$HOME/local/bin:$PATH"
 export PATH="$HOME/.emacs.d/bin:$PATH"
+
+export GOPATH="$(go env GOPATH)"
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"

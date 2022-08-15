@@ -24,9 +24,11 @@
 ;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
 ;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
 ;;
-(setq doom-font (font-spec :family "JetBrainsMono Nerd Font Mono" :size 12 :weight 'semi-light)
-     ;; doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13)
-)
+(setq doom-font (font-spec :family "JetBrainsMono Nerd Font Mono" :size 12)
+      doom-variable-pitch-font (font-spec :family "JetBrainsMono Nerd Font Mono" :size 12)
+      doom-big-font (font-spec :family "JetBrainsMono Nerd Font Mono" :size 12)
+      doom-unicode-font (font-spec :family "JetBrainsMono Nerd Font Mono" :size 12)
+      doom-serif-font (font-spec :family "JetBrainsMono Nerd Font Mono" :size 12))
 
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -57,6 +59,22 @@
   (use-package org-bullets
     :config
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
+(defun yo3/on-go-mode-load ()
+  (setq flycheck-checker 'golangci-lint)
+  (display-fill-column-indicator-mode))
+
+(after! go-mode
+  (setq +format-with-lsp nil)
+
+  ;; this sets golines as the formatter, but it doesn't run when the
+  ;; file is saved. To format with golines use M-x gofmt
+  (setq gofmt-command "golines")
+  (setq gofmt-args '("--max-len=80"))
+
+  ;; The default is to use the lsp for checking, this sets golanci-lint as
+  ;; the default.
+  (add-hook 'go-mode-hook 'yo3/on-go-mode-load))
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
@@ -94,12 +112,24 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type `relative)
 
+;; Map ctrl h/j/k/l for window navigation
+
+(evil-global-set-key 'normal (kbd "C-h") 'evil-window-left)
+(evil-global-set-key 'normal (kbd "C-j") 'evil-window-down)
+(evil-global-set-key 'normal (kbd "C-k") 'evil-window-up)
+(evil-global-set-key 'normal (kbd "C-l") 'evil-window-right)
+
+(evil-global-set-key 'insert (kbd "C-h") 'evil-window-left)
+(evil-global-set-key 'insert (kbd "C-j") 'evil-window-down)
+(evil-global-set-key 'insert (kbd "C-k") 'evil-window-up)
+(evil-global-set-key 'insert (kbd "C-l") 'evil-window-right)
+
 ;; Automatically tangle our Emacs.org config file when we save it
 (defun yo3/org-babel-tangle-config ()
   (when (string-equal (buffer-file-name)
                       (expand-file-name "~/dotfiles/.doom.d/config.org"))
     ;; Dynamic scoping to the rescue
     (let ((org-confirm-babel-evaluate nil))
-      (org-babel-tangle)))
+      (org-babel-tangle))))
 
-(add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'yo3/org-babel-tangle-config))))
+(add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'yo3/org-babel-tangle-config)))

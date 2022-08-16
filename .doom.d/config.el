@@ -26,9 +26,9 @@
 ;;
 (setq doom-font (font-spec :family "JetBrainsMono Nerd Font Mono" :size 12)
       ;; doom-variable-pitch-font (font-spec :family "JetBrainsMono Nerd Font Mono" :size 12)
-      doom-variable-pitch-font (font-spec :family "Avenir Next" :size 20)
+      doom-variable-pitch-font (font-spec :family "Avenir Next" :size 12)
       ;; doom-big-font (font-spec :family "JetBrainsMono Nerd Font Mono" :size 12)
-      doom-big-font (font-spec :family "Avenir Next" :size 14)
+      doom-big-font (font-spec :family "Avenir Next" :size 12)
       doom-unicode-font (font-spec :family "JetBrainsMono Nerd Font Mono" :size 12)
       doom-serif-font (font-spec :family "JetBrainsMono Nerd Font Mono" :size 12))
 
@@ -47,6 +47,9 @@
 
 (setq +zen-text-scale 0)
 (setq +zen-window-divider-size 4)
+(setq! writeroom-width 100)
+(setq! writeroom-header-line t)
+(setq! writeroom-mode-line t)
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the

@@ -25,10 +25,20 @@
 ;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
 ;;
 (setq doom-font (font-spec :family "JetBrainsMono Nerd Font Mono" :size 12)
-      doom-variable-pitch-font (font-spec :family "JetBrainsMono Nerd Font Mono" :size 12)
-      doom-big-font (font-spec :family "JetBrainsMono Nerd Font Mono" :size 12)
+      ;; doom-variable-pitch-font (font-spec :family "JetBrainsMono Nerd Font Mono" :size 12)
+      doom-variable-pitch-font (font-spec :family "Avenir Next" :size 20)
+      ;; doom-big-font (font-spec :family "JetBrainsMono Nerd Font Mono" :size 12)
+      doom-big-font (font-spec :family "Avenir Next" :size 14)
       doom-unicode-font (font-spec :family "JetBrainsMono Nerd Font Mono" :size 12)
       doom-serif-font (font-spec :family "JetBrainsMono Nerd Font Mono" :size 12))
+
+;; (use-package! mixed-pitch
+;;   :hook
+;;   (text-mode . mixed-pitch-mode)
+;;   :config
+;;   (set-face-attribute 'default nil :font "JetBrainsMono Nerd Font Mono")
+;;   (set-face-attribute 'fixed-pitch nil :font "JetBrainsMono Nerd Font Mono")
+;;   (set-face-attribute 'variable-pitch nil :font "Avenir Next"))
 
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -45,22 +55,44 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
+
+(setq org-directory "~/org/")
+
 (after! org
-  (setq org-directory "~/org/")
-  (setq org-agenda-files '(
-                           "~/org/"
-                           "~/org/projects/"
-                           "~/org/people/"
-                           "~/org/journal/"))
+  ;; configure the org agenda dirs
+  (setq org-agenda-files
+        '("~/org/"
+          "~/org/projects/"
+          "~/org/people/"
+          "~/org/journal/"))
+
+  ;; customize the todo keywords
   (setq org-todo-keywords
         '((sequence "NEXT" "IN_PROGRESS" "WAITING_ON" "|" "DONE")))
 
+  ;; customize the org headers to be a little larger
   (custom-set-faces
-   '(org-level-1 ((t (:inherit outline-1 :height 1.2))))
-   '(org-level-2 ((t (:inherit outline-2 :height 1.1))))
-   '(org-level-3 ((t (:inherit outline-3 :height 1.1))))
-   '(org-level-4 ((t (:inherit outline-4 :height 1.0))))))
+   ;; '(default ((t (:inherit outline-1 :family "Avenir Next" :height 1.2))))
+   ;; '(org-block ((t (:inherit outline-1 :family "Avenir Next" :height 1.2))))
+   '(org-level-1 ((t (:inherit outline-1 :family "Avenir Next" :height 1.2))))
+   '(org-level-2 ((t (:inherit outline-2 :family "Avenir Next" :height 1.1))))
+   '(org-level-3 ((t (:inherit outline-3 :family "Avenir Next" :height 1.1))))
+   '(org-level-4 ((t (:inherit outline-4 :family "Avenir Next" :height 1.0)))))
 
+  ;; customize org fonts
+  ;; (custom-theme-set-faces
+  ;;  'user
+  ;;  '(variable-pitch ((t (:family "Avenir Next" :height 180 :weight thin))))
+  ;;  '(fixed-pitch ((t (:family "JetBrainsMono Nerd Font Mono" :height 180)))))
+
+  ;; (add-hook 'org-mode-hook 'variable-pitch-mode)
+
+  ;; (add-hook 'org-mode-hook 'mixed-pitch-mode)
+
+  ;; customize the ellipsis for folded sections
+  (setq org-ellipsis " ▼"))
+
+;; use org bullets for some pretty org files
 (use-package! org-bullets
     :config
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))

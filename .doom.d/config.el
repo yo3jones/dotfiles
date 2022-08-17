@@ -73,6 +73,12 @@
   (setq org-todo-keywords
         '((sequence "NEXT" "IN_PROGRESS" "WAITING_ON" "|" "DONE")))
 
+  (setq org-agenda-custom-commands
+        '(("y" "my test custom view"
+           ((todo "NEXT")
+            (tags "+inbox")
+            (todo "WAITING_ON")))))
+
   ;; customize the org headers to be a little larger
   (custom-set-faces
    ;; '(default ((t (:inherit outline-1 :family "Avenir Next" :height 1.2))))

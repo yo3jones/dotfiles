@@ -45,7 +45,7 @@
 ;; refresh your font settings. If Emacs still can't find your font, it likely
 ;; wasn't installed correctly. Font issues are rarely Doom issues!
 
-(setq +zen-text-scale 0)
+(setq +zen-text-scale 0.2)
 (setq +zen-window-divider-size 4)
 (setq! writeroom-width 100)
 (setq! writeroom-header-line t)
@@ -66,6 +66,7 @@
   (setq org-agenda-files
         '("~/org/"
           "~/org/projects/"
+          "~/org/project/"
           "~/org/people/"
           "~/org/journal/"))
 
@@ -73,11 +74,27 @@
   (setq org-todo-keywords
         '((sequence "NEXT" "IN_PROGRESS" "WAITING_ON" "|" "DONE")))
 
+  ;; (setq org-columns-default-format-for-agenda nil)
+  ;; (setq org-agenda-columns-default-format-for-agenda nil)
   (setq org-agenda-custom-commands
         '(("y" "my test custom view"
-           ((todo "NEXT")
-            (tags "+inbox")
-            (todo "WAITING_ON")))))
+           ((todo "WAITING_ON")
+            (tags "+inbox-done")
+            (todo "IN_PROGRESS")
+            (todo "NEXT"
+                  ;; ((org-overriding-columns-format "%20ITEM")
+                  ;;  (org-agenda-overriding-columns-format "%20ITEM")
+                  ;;  (org-agenda-tags-column -200))
+                  )))
+           ;; (todo "IN_PROGRESS"
+           ;;        ;; ((org-agenda-overriding-columns-format "%50TAGS %50ITEM")
+           ;;        ;;  (org-overriding-columns-format "%50TAGS %50ITEW")
+           ;;        ;;  ;;(org-agenda-overriding-columns-format nil)
+           ;;        ;;  (org-agenda-tags-column -200))
+           ;;        )
+          ;; ("n" todo "IN_PROGRESS"
+          ;;  ((org-overriding-columns-format "%50TAGS")))
+          ))
 
   ;; customize the org headers to be a little larger
   (custom-set-faces

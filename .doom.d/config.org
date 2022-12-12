@@ -146,9 +146,6 @@
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 #+end_src
 
-#+RESULTS:
-: t
-
 * Key Mappings
 
 ** jj for escape
@@ -160,6 +157,24 @@
   (key-chord-mode t)
   ;; (key-chord-define-global "fd" 'evil-normal-state)
   (key-chord-define evil-insert-state-map "jj" 'evil-normal-state))
+
+#+end_src
+
+** Hydra
+*** fast resize split
+#+begin_src emacs-lisp
+
+(use-package! hydra
+  :config
+  (defhydra yo3/hydra-resize (:hint nil)
+    "horizontal resize"
+    ("+" evil-window-increase-height)
+    ("-" evil-window-decrease-height)))
+
+(map! :leader
+      (:prefix-map ("y" . "yo3")
+       (:prefix ("w" . "window")
+        :desc "Start Resize Height" "-" #'yo3/hydra-resize/body)))
 
 #+end_src
 

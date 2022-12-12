@@ -129,6 +129,18 @@
   ;; (key-chord-define-global "fd" 'evil-normal-state)
   (key-chord-define evil-insert-state-map "jj" 'evil-normal-state))
 
+(use-package! hydra
+  :config
+  (defhydra yo3/hydra-resize (:hint nil)
+    "horizontal resize"
+    ("+" evil-window-increase-height)
+    ("-" evil-window-decrease-height)))
+
+(map! :leader
+      (:prefix-map ("y" . "yo3")
+       (:prefix ("w" . "window")
+        :desc "Start Resize Height" "-" #'yo3/hydra-resize/body)))
+
 (defun yo3/on-go-mode-load ()
   (setq flycheck-checker 'golangci-lint)
   (display-fill-column-indicator-mode))

@@ -1,9 +1,10 @@
-require ('plugins')
-require ('settings')
-require ('mappings')
-require ('lsp')
-{{- if .ForTag "work" }}
+require('plugins')
+require('setup')
+require('settings')
+require('mappings')
+require('lsp')
+-- {{- if .ForTag "work" }}
 require('local-work')
-{{ else }}
+-- {{ else }}
 require('local')
-{{- end -}}
+-- {{- end }}

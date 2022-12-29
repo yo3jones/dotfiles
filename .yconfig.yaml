@@ -9,6 +9,7 @@ generate:
   - .config/*
   - .config/*/*
   - .config/*/*/*
+  - .config/*/*/*/*
   - .doom.d/*
 
   exclude:
@@ -83,6 +84,8 @@ setup:
           - neovim
           - cmake
           - libtool
+          - wget
+          - luarocks
 
   # Amethyst
   # Tiling Window Manager
@@ -253,6 +256,21 @@ setup:
     tags: go
     script: go install github.com/fatih/gomodifytags@latest
 
+  # C++
+  - name: cpp mac
+    tags: cpp
+    os: darwin
+    packages:
+      - ccls
+      - cmake
+      - llvm
+      - postgresql
+  - name: cmake-language-server
+    tags: cpp
+    script: pip3 install cmake-language-server
+
+
+
   # Emacs
   # - name: Emacs
   #   tags: emacs
@@ -403,4 +421,3 @@ install:
         - nvim --headless -c "TSUpdateSync" -c "quitall"
 
 #    - name: key-repeat
-

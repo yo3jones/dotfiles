@@ -205,6 +205,9 @@
 (evil-global-set-key 'insert (kbd "C-k") 'evil-window-up)
 (evil-global-set-key 'insert (kbd "C-l") 'evil-window-right)
 
+(setq +zen-text-scale 0.4)
+(setq +zen-window-divider-size 4)
+
 ;; Automatically tangle our Emacs.org config file when we save it
 (defun yo3/org-babel-tangle-config ()
   (when (string-equal (buffer-file-name)

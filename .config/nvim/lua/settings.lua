@@ -5,14 +5,14 @@ opt.compatible = false
 -- filetype plugin on
 -- set directory=$HOME/.vim/swap_files/
 opt.spell = false
-opt.spelllang = "en_us"
+opt.spelllang = 'en_us'
 -- autocmd BufWritePre * %s/\s\+$//e
-opt.bs = "2"
+opt.bs = '2'
 
 -- Tabs Spacing
 
 -- Golang - use tabs instead of spaces
-vim.cmd[[au BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4]]
+vim.cmd [[au BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4]]
 
 -- set ttymouse=xterm2
 -- set ttymouse=sgr
@@ -29,7 +29,7 @@ opt.ruler = true
 -- opt.cursorcolumn = false
 
 opt.lazyredraw = true
-opt.foldmethod = "manual"
+opt.foldmethod = 'manual'
 
 -- Line Number
 opt.number = true
@@ -52,12 +52,12 @@ opt.title = true
 opt.showcmd = true
 
 -- Max Characher Line
-opt.colorcolumn = "80"
+opt.colorcolumn = '80'
 
 -- clipboard
--- opt.clipboard = "unnamed"
+-- opt.clipboard = 'unnamed'
 
-opt.completeopt = "menu,menuone,noselect"
+opt.completeopt = 'menu,menuone,noselect'
 
 opt.showmatch = true -- show matching brackets
 
@@ -80,15 +80,15 @@ opt.joinspaces = false -- join lines without two spaces
 
 opt.termguicolors = true -- allow true colors
 
-opt.inccommand = "nosplit" -- show effects of substitute incrementally
+opt.inccommand = 'nosplit' -- show effects of substitute incrementally
 
-opt.mouse = "a" -- enable mouse mode
+opt.mouse = 'a' -- enable mouse mode
 
 opt.updatetime = 400 -- decrease time for cursorhold event
 
 -- trying to use nvim-treesitter for folding
--- doesn't work well yet, want to be able to fold inside, not outside of a 
+-- doesn't work well yet, want to be able to fold inside, not outside of a
 -- function/method
 --
--- opt.foldmethod = "expr"
--- opt.foldexpr = "nvim_treesitter#foldexpr()"
+-- opt.foldmethod = 'expr'
+-- opt.foldexpr = 'nvim_treesitter#foldexpr()'

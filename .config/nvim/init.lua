@@ -1,5 +1,4 @@
 require('plugins')
-require('setup')
 require('settings')
 require('mappings')
 require('lsp')
@@ -8,3 +7,4 @@ require('local-work')
 -- {{ else }}
 require('local')
 -- {{- end }}
+require('setup')

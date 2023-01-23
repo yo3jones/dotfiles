@@ -28,7 +28,7 @@ local on_attach = function( --[[ client --]] _, bufnr)
     buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
     buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
     buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+    buf_set_keymap('n', 'gI', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
     buf_set_keymap('n', '<leader>k',
                    '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
     buf_set_keymap('n', '<space>wa',
@@ -103,7 +103,9 @@ null_ls.setup({
         -- null_ls.builtins.diagnostics.luacheck,
         null_ls.builtins.formatting.lua_format,
         null_ls.builtins.diagnostics.cpplint,
+        -- .with({extra_filetypes = {"h"}}),
         null_ls.builtins.formatting.clang_format
+        -- .with({extra_filetypes = {"h"}})
     }
 })
 

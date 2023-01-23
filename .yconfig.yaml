@@ -265,6 +265,8 @@ setup:
       - cmake
       - llvm
       - postgresql
+      - asio
+      - boost
   - name: cmake-language-server
     tags: cpp
     script: pip3 install cmake-language-server

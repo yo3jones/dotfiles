@@ -6,12 +6,12 @@
 -- If no prettier config file is found, the formatter will not be used
 vim.g.lazyvim_prettier_needs_config = false
 
--- Disable LazyVim's default clipboard.
+--- Disable LazyVim's default clipboard.
 vim.opt.clipboard = ""
 
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-vim.opt.foldenable = false
-
+-- Max Characher Line
 vim.opt.colorcolumn = "80"
-vim.opt.background = "dark"
+
+vim.opt.wrap = false
+
+vim.opt.termguicolors = true

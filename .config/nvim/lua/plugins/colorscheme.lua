@@ -1,97 +1,158 @@
-local function hex_to_rgb(hex_color_string)
-  local clean_hex = string.gsub(hex_color_string, "#", "")
+local function hexToRgb(hexColor)
+  -- Remove '#' if present
+  hexColor = hexColor:gsub("#", "")
 
-  if #clean_hex ~= 6 then
-    error("Invalid hex color string format. Expected RRGGBB.")
+  -- Ensure the string has 6 characters (RRGGBB)
+  if #hexColor ~= 6 then
+    error("Invalid hex color format. Expected 6 characters (RRGGBB).")
   end
 
-  local red_hex = string.sub(clean_hex, 1, 2)
-  local green_hex = string.sub(clean_hex, 3, 4)
-  local blue_hex = string.sub(clean_hex, 5, 6)
+  -- Extract R, G, B components
+  local r_hex = hexColor:sub(1, 2)
+  local g_hex = hexColor:sub(3, 4)
+  local b_hex = hexColor:sub(5, 6)
 
-  local red_int = tonumber(red_hex, 16)
-  local green_int = tonumber(green_hex, 16)
-  local blue_int = tonumber(blue_hex, 16)
+  -- Convert hex to decimal
+  local r = tonumber(r_hex, 16)
+  local g = tonumber(g_hex, 16)
+  local b = tonumber(b_hex, 16)
 
-  return red_int, green_int, blue_int
+  return r, g, b
 end
 
 local function darken(color, percent)
-  local r, g, b = hex_to_rgb(color)
+  local r, g, b = hexToRgb(color)
 
-  return string.format("#%02X%02X%02X", r - (r * percent), g - (g * percent), b - (b * percent))
+  r = r - (r * percent)
+  g = g - (g * percent)
+  b = b - (b * percent)
+
+  return string.format("#%02x%02x%02x", r, g, b)
 end
 
 return {
-  -- {
-  --   "sainnhe/gruvbox-material",
-  --   config = function()
-  --     vim.opt.background = "dark"
-  --     vim.g.gruvbox_material_background = "hard"
-  --     vim.g.gruvbox_material_palette = "original"
-  --     vim.g.gruvbox_material_better_performance = 1
-  --     vim.g.gruvbox_material_enable_bold = 1
-  --     vim.g.gruvbox_material_enable_italic = 1
-  --   end,
-  -- },
-
   {
     "ellisonleao/gruvbox.nvim",
-    config = true,
+    enabled = true,
     priority = 1000,
-    opts = function(_, opts_in)
+    config = true,
+    opts = function(_, opts)
       local palette = require("gruvbox").palette
+      local darken_percent = 0.85
 
-      ---@type GruvboxConfig
-      local opts = {
+      return vim.tbl_extend("force", opts, {
+        strikethrough = true,
         contrast = "hard",
         overrides = {
           -- H1
-          RenderMarkdownH1Bg = { fg = palette.bright_red, bg = darken(palette.bright_red, 0.9) },
-          ["@markup.heading.1.markdown"] = { fg = palette.bright_red },
+          ["@markup.heading.1.markdown"] = { fg = palette.neutral_red, bold = true },
+          RenderMarkdownH1Bg = {
+            fg = palette.neutral_red,
+            bg = darken(palette.neutral_red, darken_percent),
+            bold = true,
+          },
 
           -- H2
-          RenderMarkdownH2Bg = { fg = palette.bright_yellow, bg = darken(palette.bright_yellow, 0.9) },
-          ["@markup.heading.2.markdown"] = { fg = palette.bright_yellow },
+          ["@markup.heading.2.markdown"] = { fg = palette.neutral_orange, bold = true },
+          RenderMarkdownH2Bg = {
+            fg = palette.neutral_orange,
+            bg = darken(palette.neutral_orange, darken_percent),
+            bold = true,
+          },
 
           -- H3
-          RenderMarkdownH3Bg = { fg = palette.bright_green, bg = darken(palette.bright_green, 0.9) },
-          ["@markup.heading.3.markdown"] = { fg = palette.bright_green },
+          ["@markup.heading.3.markdown"] = { fg = palette.bright_purple, bold = true },
+          RenderMarkdownH3Bg = {
+            fg = palette.bright_purple,
+            bg = darken(palette.bright_purple, darken_percent),
+            bold = true,
+          },
 
           -- H4
-          RenderMarkdownH4Bg = { fg = palette.bright_aqua, bg = darken(palette.bright_aqua, 0.9) },
-          ["@markup.heading.4.markdown"] = { fg = palette.bright_aqua },
+          ["@markup.heading.4.markdown"] = { fg = palette.bright_aqua, bold = true },
+          RenderMarkdownH4Bg = {
+            fg = palette.bright_aqua,
+            bg = darken(palette.bright_aqua, darken_percent),
+            bold = true,
+          },
 
           -- H5
-          RenderMarkdownH5Bg = { fg = palette.bright_blue, bg = darken(palette.bright_blue, 0.9) },
-          ["@markup.heading.5.markdown"] = { fg = palette.bright_blue },
+          ["@markup.heading.5.markdown"] = { fg = palette.neutral_blue, bold = true },
+          RenderMarkdownH5Bg = {
+            fg = palette.neutral_blue,
+            bg = darken(palette.neutral_blue, darken_percent),
+            bold = true,
+          },
+
+          -- H6
+          ["@markup.heading.6.markdown"] = { fg = palette.neutral_yellow, bold = true },
+          RenderMarkdownH6Bg = {
+            fg = palette.neutral_yellow,
+            bg = darken(palette.neutral_yellow, darken_percent),
+            bold = true,
+          },
 
           -- Links
+          RenderMarkdownLink = { fg = palette.bright_green },
+          RenderMarkdownWikiLink = { fg = palette.bright_green },
           ["@markup.link.label.markdown_inline"] = { fg = palette.bright_blue },
-          RenderMarkdownLink = { fg = palette.bright_yellow },
-          RenderMarkdownWikiLink = { fg = palette.bright_yellow },
-          -- ["@markup.link.label.markdown_inline"] = { fg = palette.bright_yellow },
-          -- RenderMarkdownWikiLink = { fg = palette.bright_blue },
-          -- RenderMarkdownLink = { fg = palette.bright_blue },
 
-          -- Pipe Table
-          ["@markup.heading.markdown"] = { fg = palette.bright_orange },
-          RenderMarkdownTableHead = { fg = palette.bright_orange },
-          RenderMarkdownTableRow = { fg = palette.bright_orange },
+          -- pipe_table
+          -- ["@markup.heading.markdown"] = { fg = palette.bright_aqua, bold = true },
+          ["@markup.heading.markdown"] = { fg = palette.bright_orange, bold = true },
+          RenderMarkdownTableHead = { fg = palette.neutral_orange },
+          RenderMarkdownTableRow = { fg = palette.neutral_orange },
 
-          -- Checkbox
-          RenderMarkdownCheckedItem = { strikethrough = true },
+          -- @markup.strikethrough
+          -- @markup.strikethrough.markdown_inline
+          -- ["@markup.strikethrough"] = { strikethrough = true },
+          -- ["@markup.strike"] = { strikethrough = true },
+          -- ["@markup.strikethrough.markdown_inline"] = { strikethrough = true },
+
+          -- Checkboxes
+          RenderMarkdownCheckedScope = { strikethrough = true },
+          RenderMarkdownWaiting = { fg = palette.bright_yellow },
+          RenderMarkdownAlert = { fg = palette.bright_red },
         },
-      }
-
-      return vim.tbl_extend("force", opts_in, opts)
+      })
     end,
   },
+
+  {
+    "sainnhe/gruvbox-material",
+    enabled = false,
+    lazy = false,
+    priority = 1000,
+    config = function()
+      vim.opt.background = "dark"
+      vim.g.gruvbox_material_enable_italic = true
+      vim.g.gruvbox_material_background = "hard"
+      -- vim.g.gruvbox_material_foreground = "material"
+      -- vim.g.gruvbox_material_foreground = "original"
+      vim.g.gruvbox_material_foreground = "mixed"
+      vim.g.gruvbox_material_enable_bold = 1
+      vim.g.gruvbox_material_enable_italic = 1
+    end,
+  },
+
+  -- {
+  --   "navarasu/onedark.nvim",
+  --   priority = 1000, -- make sure to load this before all the other start plugins
+  --   config = function()
+  --     require("onedark").setup({
+  --       -- style = "warmer",
+  --       style = "darker",
+  --     })
+  --     -- Enable theme
+  --     -- require("onedark").load()
+  --   end,
+  -- },
 
   -- Configure LazyVim to load gruvbox
   {
     "LazyVim/LazyVim",
     opts = {
+      -- colorscheme = "onedark",
       -- colorscheme = "gruvbox-material",
       colorscheme = "gruvbox",
     },

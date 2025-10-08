@@ -1,0 +1,48 @@
+return {
+  -- {
+  --   "nvim-neorg/neorg",
+  --   build = ":Neorg sync-parsers",
+  --   dependencies = { "nvim-lua/plenary.nvim" },
+  --   config = function()
+  --     require("neorg").setup({
+  --       load = {
+  --         ["core.defaults"] = {}, -- Loads default behaviour
+  --         ["core.concealer"] = {}, -- Adds pretty icons to your documents
+  --         ["core.keybinds"] = {
+  --           -- config = {
+  --           --   hook = function(keybindings)
+  --           --     -- core.itero.next-iteration
+  --           --     keybindings.remap_key("norg", "i", "<M-CR>", "<C-\\>")
+  --           --     keybindings.remap_key("norg", "n", "<M-CR>", "<C-\\>")
+  --           --   end,
+  --           -- },
+  --         },
+  --         ["core.dirman"] = { -- Manages Neorg workspace
+  --           config = {
+  --             workspaces = {
+  --               notes = "~/notes",
+  --             },
+  --             default_workspace = "notes",
+  --           },
+  --         },
+  --         ["core.summary"] = {
+  --           config = {
+  --             strategy = "default",
+  --           },
+  --         },
+  --         ["core.completion"] = {
+  --           config = {
+  --             engine = "nvim-cmp",
+  --           },
+  --         },
+  --         -- need neovim 10.0
+  --         -- ["core.ui.calendar"] = {},
+  --       },
+  --     })
+  --
+  --     local keymap = vim.api.nvim_set_keymap
+  --     keymap("n", "<C-\\>", "<cmd>Neorg keybind all core.itero.next-iteration<cr>i ", {})
+  --     keymap("i", "<C-\\>", "<cmd>Neorg keybind all core.itero.next-iteration<cr>", {})
+  --   end,
+  -- },
+}

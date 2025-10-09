@@ -96,6 +96,14 @@ return {
           stackoverflow = { pattern = "stackoverflow%.com", icon = "󰓌 " },
           wikipedia = { pattern = "wikipedia%.org", icon = "󰖬 " },
           youtube = { pattern = "youtube%.com", icon = "󰗃 " },
+
+          -- Meta Internal
+          googleInternSlide = { pattern = "/gslide/", icon = "󰊭 " },
+          googleInternSheet = { pattern = "/gsheet/", icon = "󰊭 " },
+          googleInternDoc = { pattern = "/gdoc/", icon = "󰊭 " },
+          diff = { pattern = "/diff/", icon = " " },
+          task = { pattern = "/tasks/", icon = " " },
+          code = { pattern = "/code/", icon = " " },
         },
       },
     },

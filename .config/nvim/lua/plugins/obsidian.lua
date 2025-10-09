@@ -17,6 +17,36 @@ return {
     --   "BufReadPre path/to/my-vault/*.md",
     --   "BufNewFile path/to/my-vault/*.md",
     -- },
+    keys = {
+      {
+        "<leader>ot",
+        "<cmd>Obsidian today<cr>",
+        -- group = "+Obsidian",
+        desc = "Obsidian - Open Today's Note",
+        ft = "markdown",
+      },
+      {
+        "<leader>oy",
+        "<cmd>Obsidian yesterday<cr>",
+        -- group = "+Obsidian",
+        desc = "Obsidian - Open Yesterday's Note",
+        ft = "markdown",
+      },
+      {
+        "<leader>od",
+        "<cmd>Obsidian dailies<cr>",
+        -- group = "+Obsidian",
+        desc = "Obsidian - Picker of Daily Notes",
+        ft = "markdown",
+      },
+      {
+        "<leader>oT",
+        "<cmd>Obsidian toc<cr>",
+        -- group = "+Obsidian",
+        desc = "Obsidian - Picker of TOC",
+        ft = "markdown",
+      },
+    },
     opts = {
       ui = {
         enable = false,

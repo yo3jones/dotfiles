@@ -52,16 +52,17 @@ return {
         enable = false,
       },
 
-      workspaces = {
+      workspaces = require("utils.env").select({
         {
           name = "personal",
           path = "~/Documents/Yo3",
         },
+      }, {
         {
           name = "Meta",
           path = "~/obsidian-vault/Meta",
         },
-      },
+      }),
 
       -- completion = {
       --   blink = true,

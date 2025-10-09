@@ -1,6 +1,4 @@
 return {
-  -- { "alexghergh/nvim-tmux-navigation" },
-
   {
     "christoomey/vim-tmux-navigator",
     cmd = {
@@ -17,15 +15,6 @@ return {
       { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
       { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
       { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
-    },
-  },
-
-  "folke/flash.nvim",
-  opts = {
-    modes = {
-      search = {
-        enabled = false,
-      },
     },
   },
 }

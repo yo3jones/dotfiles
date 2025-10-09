@@ -33,9 +33,9 @@ return {
         },
       },
 
-      completion = {
-        blink = true,
-      },
+      -- completion = {
+      --   blink = true,
+      -- },
 
       picker = {
         name = "snacks.pick",
@@ -45,6 +45,10 @@ return {
         folder = "Daily Notes",
         date_format = "%Y-%m-%d %A",
       },
+
+      note_id_func = function(title)
+        return title
+      end,
     },
   },
 }

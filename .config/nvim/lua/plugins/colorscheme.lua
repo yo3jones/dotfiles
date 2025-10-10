@@ -134,6 +134,13 @@ return {
           RenderMarkdownCheckedScope = { strikethrough = true },
           RenderMarkdownWaiting = { fg = palette.bright_yellow },
           RenderMarkdownAlert = { fg = palette.bright_red },
+
+          -- Highlight `==this is a highlight==`
+          RenderMarkdownInlineHighlight = {
+            fg = palette.light0_hard,
+            bold = true,
+            underline = true,
+          },
         },
       })
     end,

@@ -1,0 +1,9 @@
+# MD040/fenced-code-language Fenced code blocks should have a language specified
+MD040: false
+
+# MD036/no-emphasis-as-heading Emphasis used instead of a heading
+MD036: false
+
+# MD049/emphasis-style
+# https://github.com/DavidAnson/markdownlint/blob/v0.32.1/doc/md049.md
+MD049: false

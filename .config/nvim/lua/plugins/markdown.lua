@@ -56,10 +56,10 @@ return {
         -- | scope_highlight | optional highlight for item associated with custom checkbox |
         -- stylua: ignore
         custom = {
-            todo = { raw = '[-]', rendered = '󰄗 ', highlight = 'RenderMarkdownTodo', scope_highlight = nil },
-            todo_2 = { raw = '[~]', rendered = '󰄗 ', highlight = 'RenderMarkdownTodo', scope_highlight = nil },
-            waiting = { raw = '[>]', rendered = '󰥔 ', highlight = 'RenderMarkdownWaiting', scope_highlight = nil },
-            alert = { raw = '[!]', rendered = '󰀦 ', highlight = 'RenderMarkdownAlert', scope_highlight = nil },
+          todo = { raw = '[-]', rendered = '󰄗 ', highlight = 'RenderMarkdownTodo', scope_highlight = nil },
+          todo_2 = { raw = '[~]', rendered = '󰄗 ', highlight = 'RenderMarkdownTodo', scope_highlight = nil },
+          waiting = { raw = '[>]', rendered = '󰥔 ', highlight = 'RenderMarkdownWaiting', scope_highlight = nil },
+          alert = { raw = '[!]', rendered = '󰀦 ', highlight = 'RenderMarkdownAlert', scope_highlight = nil },
           -- ' '
           -- '󰐌 '
           -- '󰀦 '
@@ -137,6 +137,20 @@ return {
   -- CarratEvalAll
   {
     "jbyuki/carrot.nvim",
+    keys = {
+      {
+        "<leader>ce",
+        "<cmd>CarrotEval<cr>",
+        desc = "Carrot - Evaluate code block",
+        ft = "markdown",
+      },
+      {
+        "<leader>cE",
+        "<cmd>CarrotEvalAll<cr>",
+        desc = "Carrot - Evaluate all code blocks",
+        ft = "markdown",
+      },
+    },
   },
 
   -- LSP in code blocks
@@ -147,11 +161,18 @@ return {
       local otter = require("otter")
 
       vim.api.nvim_create_user_command("OtterActivate", function()
-        vim.notify("woot")
         otter.activate()
       end, {})
 
       otter.setup(opts)
     end,
+    keys = {
+      {
+        "<leader>cL",
+        "<cmd>OtterActivate<cr>",
+        desc = "Otter - Activate code block lsp",
+        ft = "markdown",
+      },
+    },
   },
 }

@@ -131,4 +131,27 @@ return {
       },
     },
   },
+
+  -- Execute lua in code blocks
+  -- CarrotEval
+  -- CarratEvalAll
+  {
+    "jbyuki/carrot.nvim",
+  },
+
+  -- LSP in code blocks
+  -- OtterActivate
+  {
+    "jmbuhr/otter.nvim",
+    config = function(_, opts)
+      local otter = require("otter")
+
+      vim.api.nvim_create_user_command("OtterActivate", function()
+        vim.notify("woot")
+        otter.activate()
+      end, {})
+
+      otter.setup(opts)
+    end,
+  },
 }

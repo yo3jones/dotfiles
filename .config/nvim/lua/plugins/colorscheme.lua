@@ -45,7 +45,10 @@ return {
         contrast = "hard",
         overrides = {
           -- H1
-          ["@markup.heading.1.markdown"] = { fg = palette.neutral_red, bold = true },
+          ["@markup.heading.1.markdown"] = {
+            fg = palette.neutral_red,
+            bold = true,
+          },
           RenderMarkdownH1Bg = {
             fg = palette.neutral_red,
             bg = darken(palette.neutral_red, darken_percent),
@@ -53,7 +56,10 @@ return {
           },
 
           -- H2
-          ["@markup.heading.2.markdown"] = { fg = palette.neutral_orange, bold = true },
+          ["@markup.heading.2.markdown"] = {
+            fg = palette.neutral_orange,
+            bold = true,
+          },
           RenderMarkdownH2Bg = {
             fg = palette.neutral_orange,
             bg = darken(palette.neutral_orange, darken_percent),
@@ -61,7 +67,10 @@ return {
           },
 
           -- H3
-          ["@markup.heading.3.markdown"] = { fg = palette.bright_purple, bold = true },
+          ["@markup.heading.3.markdown"] = {
+            fg = palette.bright_purple,
+            bold = true,
+          },
           RenderMarkdownH3Bg = {
             fg = palette.bright_purple,
             bg = darken(palette.bright_purple, darken_percent),
@@ -69,7 +78,10 @@ return {
           },
 
           -- H4
-          ["@markup.heading.4.markdown"] = { fg = palette.bright_aqua, bold = true },
+          ["@markup.heading.4.markdown"] = {
+            fg = palette.bright_aqua,
+            bold = true,
+          },
           RenderMarkdownH4Bg = {
             fg = palette.bright_aqua,
             bg = darken(palette.bright_aqua, darken_percent),
@@ -77,7 +89,10 @@ return {
           },
 
           -- H5
-          ["@markup.heading.5.markdown"] = { fg = palette.neutral_blue, bold = true },
+          ["@markup.heading.5.markdown"] = {
+            fg = palette.neutral_blue,
+            bold = true,
+          },
           RenderMarkdownH5Bg = {
             fg = palette.neutral_blue,
             bg = darken(palette.neutral_blue, darken_percent),
@@ -85,7 +100,10 @@ return {
           },
 
           -- H6
-          ["@markup.heading.6.markdown"] = { fg = palette.neutral_yellow, bold = true },
+          ["@markup.heading.6.markdown"] = {
+            fg = palette.neutral_yellow,
+            bold = true,
+          },
           RenderMarkdownH6Bg = {
             fg = palette.neutral_yellow,
             bg = darken(palette.neutral_yellow, darken_percent),
@@ -99,7 +117,10 @@ return {
 
           -- pipe_table
           -- ["@markup.heading.markdown"] = { fg = palette.bright_aqua, bold = true },
-          ["@markup.heading.markdown"] = { fg = palette.bright_orange, bold = true },
+          ["@markup.heading.markdown"] = {
+            fg = palette.bright_orange,
+            bold = true,
+          },
           RenderMarkdownTableHead = { fg = palette.neutral_orange },
           RenderMarkdownTableRow = { fg = palette.neutral_orange },
 

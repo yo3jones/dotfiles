@@ -46,6 +46,20 @@ return {
         desc = "Obsidian - Picker of TOC",
         ft = "markdown",
       },
+      {
+        "<leader>ol",
+        "<cmd>Obsidian links<cr>",
+        -- group = "+Obsidian",
+        desc = "Obsidian - Picker of note links",
+        ft = "markdown",
+      },
+      {
+        "<leader>ob",
+        "<cmd>Obsidian backlinks<cr>",
+        -- group = "+Obsidian",
+        desc = "Obsidian - Picker of note back links",
+        ft = "markdown",
+      },
     },
     opts = {
       ui = {

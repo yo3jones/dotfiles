@@ -136,6 +136,14 @@ local my_theme = {
 
   -- Highlight
   highlight = my_colors.bright_white,
+
+  -- Obsidian Header
+  header_key = my_colors.gruvbox_material_natural_aqua,
+  header_value = my_colors.gruvbox_material_natural_green,
+  header_punctuation = my_colors.gruvbox_material_natural_orange,
+
+  -- Code
+  inline_code = my_colors.gruvbox_material_natural_green,
 }
 
 return {
@@ -281,6 +289,14 @@ return {
             bold = true,
             underline = true,
           },
+
+          -- Headers
+          ["@property.yaml"] = { fg = my_theme.header_key },
+          ["@string.yaml"] = { fg = my_theme.header_value },
+          ["@punctuation.bracket.yaml"] = { fg = my_theme.header_punctuation },
+
+          -- Code
+          RenderMarkdownCodeInline = { fg = my_theme.inline_code },
         },
       })
     end,

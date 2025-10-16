@@ -89,6 +89,11 @@ return {
       daily_notes = {
         folder = "Daily Notes",
         date_format = "%Y-%m-%d %A",
+        template = "Daily",
+      },
+
+      templates = {
+        folder = "Templates",
       },
 
       note_id_func = function(title)

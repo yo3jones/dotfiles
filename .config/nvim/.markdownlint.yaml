@@ -17,3 +17,8 @@ MD049: false
 # blanks-around-fences
 # Fenced code blocks should be surrounded by blank lines
 MD031: false
+
+# MD028
+# no-blanks-blockquote
+# Blank line inside blockquote
+MD028: false

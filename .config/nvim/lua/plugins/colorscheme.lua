@@ -111,6 +111,11 @@ local my_colors = {
 ---@field pipe_table_border string
 ---@field checkbox_icon_waiting string
 ---@field checkbox_icon_alert string
+---@field header_key string
+---@field header_value string
+---@field header_punctuation string
+---@field inline_code string
+---@field bufferline_indicator_selected string
 local my_theme = {
   -- Headings
   heading_darken_percent = 0.9,
@@ -144,6 +149,9 @@ local my_theme = {
 
   -- Code
   inline_code = my_colors.gruvbox_material_natural_green,
+
+  -- Bufferline
+  bufferline_indicator_selected = my_colors.gruvbox_bright_blue,
 }
 
 return {
@@ -331,6 +339,35 @@ return {
   --     -- require("onedark").load()
   --   end,
   -- },
+
+  {
+    "akinsho/bufferline.nvim",
+    opts = {
+      options = {
+        -- indicator = {
+        --   style = "underline",
+        -- },
+      },
+      highlights = {
+        -- tab_selected = { fg = "red", bg = "red" },
+        -- tab_separator = { fg = "red", bg = "red" },
+        -- buffer_selected = {
+        --   fg = "red",
+        --   bg = "red",
+        --   bold = true,
+        --   italic = true,
+        -- },
+        -- separator_selected = {
+        --   fg = "red",
+        --   bg = "red",
+        -- },
+        indicator_selected = {
+          fg = my_theme.bufferline_indicator_selected,
+          -- bg = my_theme.bufferline_indicator_selected,
+        },
+      },
+    },
+  },
 
   -- Configure LazyVim to load gruvbox
   {

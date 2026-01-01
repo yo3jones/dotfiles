@@ -26,6 +26,40 @@ local p = require("utils/print")
 ---@field social_security SocialSecurityRate
 ---@field ira IraRate
 
+---@alias AppliedTaxes '"medicare"' | '"high_income_medicare"' | '"ssn"'
+---@alias Features '"ssn"' | '"401k"' | '"stock"' | '"comp"' | '"taxes"'
+
+---@class StockVest
+---@field [1] string
+---@field shares integer
+---@field tax_rate number
+---@field other_taxes AppliedTaxes[]
+
+---@class Input
+---@field year integer
+---@field as_of integer
+---@field stock_price number
+---@field first_paycheck integer
+---@field total_income number
+---@field federal_taxible_income number
+---@field federal_withholdings number
+---@field social_security_withholdings number
+---@field ira_contribution number
+---@field salary number
+---@field bonus number
+---@field ira_contribution_rate number
+---@field features Features[]
+---@field stock_vests StockVest[]
+
+---@class FinanceYear
+---@field rates Rates
+---@field input Input
+---@field paychecks_in_year integer
+---@field paychecks_remaining integer
+---@field paycheck number
+local FinanceYear = {}
+FinanceYear.__index = FinanceYear
+
 local RATES_BY_YEAR = {
   [2026] = {
     federal = {
@@ -99,58 +133,8 @@ local getFederalTaxEstimate = function(federal_taxible_income, rates)
   return taxes - rates.federal.federal_standard_deduction
 end
 
----@alias AppliedTaxes '"medicare"' | '"high_income_medicare"' | '"ssn"'
----@alias Features '"ssn"' | '"401k"' | '"stock"' | '"comp"'
-
----@class StockVest
----@field [1] string
----@field shares integer
----@field tax_rate number
----@field other_taxes AppliedTaxes[]
-
----@class Input
----@field year integer
----@field as_of integer
----@field stock_price number
----@field first_paycheck integer
----@field total_income number
----@field federal_taxible_income number
----@field federal_withholdings number
----@field social_security_withholdings number
----@field ira_contribution number
----@field salary number
----@field bonus number
----@field ira_contribution_rate number
----@field features Features[]
----@field stock_vests StockVest[]
-
----@class FinanceYear
----@field rates Rates
----@field input Input
----@field paychecks_in_year integer
----@field paychecks_remaining integer
----@field paycheck number
-local FinanceYear = {}
-FinanceYear.__index = FinanceYear
-
----@param input Input
-function FinanceYear:new(input)
-  local new_finance_year = {}
-  setmetatable(new_finance_year, FinanceYear)
-
-  new_finance_year.input = input
-  new_finance_year.paychecks_in_year =
-    getPaychecksRemaining(input.year, input.first_paycheck)
-  new_finance_year.paychecks_remaining =
-    getPaychecksRemaining(input.year, input.as_of)
-  new_finance_year.rates = RATES_BY_YEAR[input.year]
-  new_finance_year.paycheck = input.salary / new_finance_year.paychecks_in_year
-
-  return new_finance_year
-end
-
-function FinanceYear:print()
-  -- SSN
+---@param self FinanceYear
+local printSSN = function(self)
   p.printHeader("SSN")
   p.printf(
     "- SSN Withheld: %s",
@@ -190,8 +174,10 @@ function FinanceYear:print()
     remaining_ssn_after_bonus / (self.paycheck * self.rates.social_security[1])
   )
   p.printSep()
+end
 
-  -- 401k
+---@param self FinanceYear
+local print401k = function(self)
   p.printHeader("401k")
   p.printf(
     "- 401k Contribution: %s",
@@ -207,39 +193,61 @@ function FinanceYear:print()
       / (self.paycheck * self.input.ira_contribution_rate)
   )
   p.printSep()
+end
 
-  -- Stock Vests
-  p.printHeader("Remaining Stock Vests")
+---@param self FinanceYear
+local getStockValues = function(self, cb)
+  cb = cb or function(_, _, _) end
   local total_stock = 0
   local total_stock_take_home = 0
-  local stock_table = p.createTable({
-    "Date",
-    { "Value", justify = "right" },
-    { "Take Home", justify = "right" },
-  })
   for _, stock_vest in ipairs(self.input.stock_vests) do
     local value = self.input.stock_price * stock_vest.shares
     local take_home = value
       - (value * getSockVestTotalTaxRate(stock_vest, self.rates))
     total_stock = total_stock + value
     total_stock_take_home = total_stock_take_home + take_home
+    cb(stock_vest, value, take_home)
+  end
+
+  return {
+    total_stock = total_stock,
+    total_stock_take_home = total_stock_take_home,
+  }
+end
+
+---@param self FinanceYear
+local printStock = function(self)
+  p.printHeader("Remaining Stock Vests")
+  local stock_table = p.createTable({
+    "Date",
+    { "Value", justify = "right" },
+    { "Take Home", justify = "right" },
+  })
+  local stock_values = getStockValues(self, function(vest, value, take_home)
     stock_table:row({
-      stock_vest[1],
+      vest[1],
       p.formatCurrInt(value),
       p.formatCurrInt(take_home),
     })
-  end
+  end)
+  local total_stock = stock_values.total_stock
+  local total_stock_take_home = stock_values.total_stock_take_home
   stock_table:print()
   print()
   p.printf("Total:           %s", p.formatCurrInt(total_stock))
   p.printf("Total Take Home: %s", p.formatCurrInt(total_stock_take_home))
   p.printSep()
+end
 
-  -- Comp
+---@param self FinanceYear
+local printComp = function(self)
   p.printHeader("Estimated Comp")
+
+  local stock_values = getStockValues(self)
+
   p.printf("- YTD: %s", p.formatCurrInt(self.input.total_income))
   local remaining_income = (self.paycheck * self.paychecks_remaining)
-    + total_stock
+    + stock_values.total_stock
     + self.input.bonus
   p.printf("- Estimated Remaining: %s", p.formatCurrInt(remaining_income))
   p.printf(
@@ -247,8 +255,10 @@ function FinanceYear:print()
     p.formatCurrInt(self.input.total_income + remaining_income)
   )
   p.printSep()
+end
 
-  -- Taxes
+---@param self FinanceYear
+local printTaxes = function(self)
   p.printHeader("Taxes")
   p.printf(
     "- Federal Taxes Withheld: %s",
@@ -264,6 +274,36 @@ function FinanceYear:print()
     "- Estimated amount owed: %s",
     p.formatCurrInt(federal_tax_estimate - self.input.federal_withholdings)
   )
+end
+
+---@param input Input
+function FinanceYear:new(input)
+  local new_finance_year = {}
+  setmetatable(new_finance_year, FinanceYear)
+
+  new_finance_year.input = input
+  new_finance_year.paychecks_in_year =
+    getPaychecksRemaining(input.year, input.first_paycheck)
+  new_finance_year.paychecks_remaining =
+    getPaychecksRemaining(input.year, input.as_of)
+  new_finance_year.rates = RATES_BY_YEAR[input.year]
+  new_finance_year.paycheck = input.salary / new_finance_year.paychecks_in_year
+
+  return new_finance_year
+end
+
+function FinanceYear:print()
+  local feature_printers = {
+    ssn = printSSN,
+    ["401k"] = print401k,
+    stock = printStock,
+    comp = printComp,
+    taxes = printTaxes,
+  }
+
+  for _, feature in ipairs(self.input.features) do
+    feature_printers[feature](self)
+  end
 end
 
 return FinanceYear

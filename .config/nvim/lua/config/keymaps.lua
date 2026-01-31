@@ -34,3 +34,7 @@ vim.api.nvim_set_keymap(
   '<C-R>=strftime("%Y-%m-%dT%H:%M")<CR>',
   { noremap = true, silent = true }
 )
+
+vim.keymap.set("n", "<leader>cx", function()
+  require("utils/carrot_to_markdown").executeAndOutputMarkdown()
+end, { noremap = true, silent = true })

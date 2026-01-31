@@ -177,21 +177,41 @@ local printSSN = function(self)
 end
 
 ---@param self FinanceYear
+local get401kRemaining = function(self)
+  return self.rates.ira.max - self.input.ira_contribution
+end
+
+---@param self FinanceYear
 local print401k = function(self)
   p.printHeader("401k")
   p.printf(
     "- 401k Contribution: %s",
     p.formatCurrInt(self.input.ira_contribution)
   )
-  p.printf(
-    "- 401k Remaining: %s",
-    p.formatCurrInt(self.rates.ira.max - self.input.ira_contribution)
-  )
+  p.printf("- 401k Remaining: %s", p.formatCurrInt(get401kRemaining(self)))
   p.printf(
     "- 401k Paychecks Remaining: %.1f",
     (self.rates.ira.max - self.input.ira_contribution)
       / (self.paycheck * self.input.ira_contribution_rate)
   )
+  p.printSep()
+end
+
+---@param self FinanceYear
+local printBonus = function(self)
+  p.printHeader("Bonus")
+
+  local bonus = self.input.bonus
+  p.printf(" - Bonus: %s", p.formatCurrInt(bonus))
+
+  bonus = bonus - get401kRemaining(self)
+  p.printf(" - After 401k: %s", p.formatCurrInt(bonus))
+
+  bonus = bonus
+    - (bonus * self.rates.medicare[1])
+    - (bonus * (self.rates.federal[1][#self.rates.federal[1]].rate / 100))
+  p.printf(" - After Taxes: %s", p.formatCurrInt(bonus))
+
   p.printSep()
 end
 
@@ -296,6 +316,7 @@ function FinanceYear:print()
   local feature_printers = {
     ssn = printSSN,
     ["401k"] = print401k,
+    bonus = printBonus,
     stock = printStock,
     comp = printComp,
     taxes = printTaxes,

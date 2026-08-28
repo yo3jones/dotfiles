@@ -9,7 +9,11 @@ M.isNotWork = function()
 end
 
 M.select = function(notWork, work)
-  return M.isNotWork() and notWork or work
+  local is_not_work = M.isNotWork()
+  if is_not_work then
+    return notWork
+  end
+  return work
 end
 
 return M

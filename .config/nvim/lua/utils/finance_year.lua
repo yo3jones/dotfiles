@@ -130,7 +130,7 @@ local getFederalTaxEstimate = function(federal_taxible_income, rates)
     running_income = running_income - taxable
   end
 
-  return taxes - rates.federal.federal_standard_deduction
+  return taxes
 end
 
 ---@param self FinanceYear
@@ -260,15 +260,29 @@ local printStock = function(self)
 end
 
 ---@param self FinanceYear
+---@param feature string
+local hasFeature = function(self, feature)
+  for _, value in ipairs(self.input.features) do
+    if value == feature then
+      return true
+    end
+  end
+  return false
+end
+
+---@param self FinanceYear
 local printComp = function(self)
   p.printHeader("Estimated Comp")
 
   local stock_values = getStockValues(self)
 
+  local bonus = hasFeature(self, "bonus") and self.input.bonus or 0
+
   p.printf("- YTD: %s", p.formatCurrInt(self.input.total_income))
+  p.printf("- Paychecks Remaining: %d", self.paychecks_remaining)
   local remaining_income = (self.paycheck * self.paychecks_remaining)
     + stock_values.total_stock
-    + self.input.bonus
+    + bonus
   p.printf("- Estimated Remaining: %s", p.formatCurrInt(remaining_income))
   p.printf(
     "- Estimated Total: %s",
@@ -284,6 +298,7 @@ local printTaxes = function(self)
     "- Federal Taxes Withheld: %s",
     p.formatCurrInt(self.input.federal_withholdings)
   )
+  -- self.rates.federal.federal_standard_deduction
   local federal_tax_estimate =
     getFederalTaxEstimate(self.input.federal_taxible_income, self.rates)
   p.printf(
@@ -291,8 +306,18 @@ local printTaxes = function(self)
     p.formatCurrInt(federal_tax_estimate)
   )
   p.printf(
+    "- Estimated Federal Taxes With Standard Deduction: %s",
+    p.formatCurrInt(
+      federal_tax_estimate - self.rates.federal.federal_standard_deduction
+    )
+  )
+  p.printf(
     "- Estimated amount owed: %s",
-    p.formatCurrInt(federal_tax_estimate - self.input.federal_withholdings)
+    p.formatCurrInt(
+      federal_tax_estimate
+        - self.input.federal_withholdings
+        - self.rates.federal.federal_standard_deduction
+    )
   )
 end
 

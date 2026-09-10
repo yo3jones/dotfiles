@@ -305,18 +305,20 @@ local printTaxes = function(self)
     "- Estimated Federal Taxes: %s",
     p.formatCurrInt(federal_tax_estimate)
   )
+  local federal_tax_estimate_with_standard_deduction = getFederalTaxEstimate(
+    self.input.federal_taxible_income
+      - self.rates.federal.federal_standard_deduction,
+    self.rates
+  )
   p.printf(
     "- Estimated Federal Taxes With Standard Deduction: %s",
-    p.formatCurrInt(
-      federal_tax_estimate - self.rates.federal.federal_standard_deduction
-    )
+    p.formatCurrInt(federal_tax_estimate_with_standard_deduction)
   )
   p.printf(
     "- Estimated amount owed: %s",
     p.formatCurrInt(
-      federal_tax_estimate
+      federal_tax_estimate_with_standard_deduction
         - self.input.federal_withholdings
-        - self.rates.federal.federal_standard_deduction
     )
   )
 end
